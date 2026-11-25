@@ -40,7 +40,7 @@ struct Boton: View {
                 }
             }
             .foregroundStyle(frente)
-            .padding(.horizontal, titulo.isEmpty ? 0 : (alto == .chico ? 12 : 16))
+            .padding(.horizontal, titulo.isEmpty ? 0 : (alto == .chico ? 12 : alto == .alto ? 26 : 16))
             .frame(minWidth: titulo.isEmpty ? altura : nil)
             .frame(maxWidth: ancho ? .infinity : nil)
             .frame(height: altura)
