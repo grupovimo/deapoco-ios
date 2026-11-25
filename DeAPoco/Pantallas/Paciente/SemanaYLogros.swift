@@ -143,7 +143,7 @@ struct TusLogros: View {
                 if let n = p.logros.first(where: \.nuevo) {
                     LogroNuevo(logro: n)
                 }
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 3), spacing: 14) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8, alignment: .top), count: 3), spacing: 14) {
                     ForEach(p.logros) { l in
                         Button { Haptico.seleccion(); elegido = l } label: { Medalla(logro: l) }
                             .buttonStyle(Apretable())

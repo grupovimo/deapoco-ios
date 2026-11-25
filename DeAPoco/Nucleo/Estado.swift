@@ -421,7 +421,8 @@ final class Estado {
                          descripcion: descripcion ?? resumenPlan(momento), nota: nota, sensacion: sensacion)
         Haptico.exito()
         withAnimation(.spring(duration: 0.6, bounce: 0.2)) {
-            paciente.registros.removeAll { $0.fecha == paciente.hoy && $0.momento == momento }
+            let hoy = paciente.hoy
+            paciente.registros.removeAll { $0.fecha == hoy && $0.momento == momento }
             paciente.registros.append(r)
         }
         if archivo != nil {

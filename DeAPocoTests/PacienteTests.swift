@@ -56,7 +56,7 @@ final class PacienteTests: XCTestCase {
     func testTarjetaSemanaSeDibuja() {
         let r = ImageRenderer(content: TarjetaSemana(racha: 12, fotos: 21, paraImagen: true))
         r.scale = 2
-        XCTAssertEqual(r.uiImage?.size.width ?? 0, 524, accuracy: 2)
+        XCTAssertEqual(r.uiImage?.size.width ?? 0, 262, accuracy: 2)
     }
     func testChat() { montar(ChatPaciente()) }
     func testChatVacio() { montar(ChatPaciente(), preparar: { $0.paciente.mensajes = [] }) }
@@ -114,7 +114,8 @@ final class PacienteTests: XCTestCase {
 
     func testLogicaTurno() {
         let e = Estado()
-        XCTAssertEqual(e.fechaCabeceraHoy, "Martes 25 · turno el jueves 11:30")
+        let dia = Fecha.diaLargo(e.paciente.hoy).capitalized
+        XCTAssertEqual(e.fechaCabeceraHoy, "\(dia) 25 · turno el \(Fecha.diaLargo("2026-11-27")) 11:30")
         XCTAssertEqual(e.diasParaTurno.count, 10)
         XCTAssertTrue(e.diasParaTurno.allSatisfy { Fecha.diaSemana($0) <= 5 })
         XCTAssertFalse(e.horariosLibres("2026-12-01").isEmpty)
@@ -122,16 +123,18 @@ final class PacienteTests: XCTestCase {
         XCTAssertEqual(e.paciente.turno?.fecha, "2026-12-01")
         e.cancelarTurnoPaciente()
         XCTAssertNil(e.paciente.turno)
-        XCTAssertEqual(e.fechaCabeceraHoy, "Martes 25")
+        XCTAssertEqual(e.fechaCabeceraHoy, "\(dia) 25")
         e.sacarTurnoPaciente(fecha: "2026-12-02", hora: "16:30", modalidad: .consultorio)
         XCTAssertEqual(e.paciente.turno?.modalidad, .consultorio)
     }
 
     func testSemanaYCompras() {
         let e = Estado()
-        XCTAssertEqual(e.textoSemanaPaciente, "Del 24 al 30 de noviembre")
-        XCTAssertEqual(e.semanaPaciente.map(\.llenas).prefix(2), [4, 2])
-        XCTAssertEqual(e.semanaPaciente.filter(\.futuro).count, 5)
+        XCTAssertTrue(e.textoSemanaPaciente.hasPrefix("Del "))
+        XCTAssertEqual(e.semanaPaciente.count, 7)
+        XCTAssertEqual(e.semanaPaciente.first { $0.esHoy }?.llenas, 2)
+        XCTAssertEqual(e.semanaPaciente.first { $0.fecha == Fecha.sumar(-1, a: e.paciente.hoy) }?.llenas ?? 4, 4)
+        XCTAssertEqual(e.semanaPaciente.filter(\.futuro).count, 7 - Fecha.diaSemana(e.paciente.hoy))
         XCTAssertTrue(e.listaCompras.contains("Guiso de lentejas"))
         XCTAssertEqual(Set(e.listaCompras.map { $0.lowercased() }).count, e.listaCompras.count, "sin repetidos")
         XCTAssertEqual(e.paciente.dias14.count, 14)

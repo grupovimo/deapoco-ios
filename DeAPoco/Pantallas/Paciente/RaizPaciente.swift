@@ -149,7 +149,9 @@ struct RaizPaciente: View {
         case "p-resumen": nav.pestana = .avance; nav.avance = [.resumen]
         case "p-celebracion": nav.pestana = .avance; nav.cubierta = .fiesta(semana: true)
         case "p-mensajes": nav.pestana = .laura
-        case "p-foto": estado.paciente.registros.removeAll { $0.fecha == estado.paciente.hoy && $0.momento == .almuerzo }
+        case "p-foto":
+            let hoy = estado.paciente.hoy
+            estado.paciente.registros.removeAll { $0.fecha == hoy && $0.momento == .almuerzo }
             nav.cubierta = .foto(.almuerzo, muestra: true)
         case "p-turno": nav.hoy = [.turno]
         case "p-sacar-turno": nav.hoy = [.turno]; nav.hoja = .turno(cambiar: true)
@@ -164,7 +166,8 @@ struct RaizPaciente: View {
         case "p-historial": nav.hoy = [.historial]
         case "p-registro": nav.hoja = .registro("p-alm")
         case "p-hoy-vacio":
-            estado.paciente.registros.removeAll { $0.fecha == estado.paciente.hoy }
+            let hoy = estado.paciente.hoy
+            estado.paciente.registros.removeAll { $0.fecha == hoy }
             estado.paciente.agua = 0
         default: break
         }

@@ -183,7 +183,7 @@ private struct Burbuja: View {
             .padding(4)
             .frame(width: 200)
         } else if let s = mensaje.audio {
-            Audio(segundos: s, mio: mio).padding(.horizontal, 14).padding(.vertical, 10).frame(width: 250)
+            Audio(segundos: s, mio: mio).padding(.horizontal, 14).padding(.vertical, 10).frame(width: 250, alignment: .leading)
         } else {
             VStack(alignment: .trailing, spacing: 4) {
                 Text(mensaje.texto ?? "").tipo(.texto(15, 400)).foregroundStyle(mio ? Color.sobreMarca : Color.texto)
@@ -223,10 +223,9 @@ private struct Audio: View {
                 IconoVista(sonando ? .pausa : .play, tamano: 16)
                     .foregroundStyle(mio ? Color.marca : Color.sobreMarca)
                     .frame(width: 34, height: 34).background(mio ? Color.sobreMarca : Color.marca, in: Circle())
-                    .frame(width: 44, height: 44).contentShape(Rectangle())
+                    .contentShape(Rectangle().inset(by: -6))
             }
             .buttonStyle(Apretable())
-            .padding(-5)
             .accessibilityLabel(sonando ? "Pausar el audio" : "Escuchar el audio de \(segundos) segundos")
             Onda(escuchado: avance)
             Text(String(format: "%d:%02d", segundos / 60, segundos % 60)).font(Estilo.texto(11, 400).font()).monospacedDigit()
