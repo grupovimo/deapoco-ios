@@ -401,7 +401,8 @@ final class Estado {
     func resumenPlan(_ m: Momento) -> String {
         guard let c = planDe(m) else { return "Lo que tengas a mano" }
         if let o = c.opciones.first { return o.nombre }
-        return c.items.map(\.nombre).joined(separator: " y ")
+        let nombres = c.items.enumerated().map { i, it in i == 0 ? it.nombre : it.nombre.prefix(1).lowercased() + it.nombre.dropFirst() }
+        return nombres.joined(separator: " y ")
     }
     /// Comidas anotadas en un día (0 a 4).
     func comidasAnotadas(_ fecha: String) -> Int {

@@ -114,17 +114,20 @@ final class PacienteTests: XCTestCase {
 
     func testLogicaTurno() {
         let e = Estado()
-        let dia = Fecha.diaLargo(e.paciente.hoy).capitalized
-        XCTAssertEqual(e.fechaCabeceraHoy, "\(dia) 25 · turno el \(Fecha.diaLargo("2026-11-27")) 11:30")
+        let hoy = e.paciente.hoy
+        let dia = Fecha.diaLargo(hoy).capitalized + " \(Fecha.dia(hoy))"
+        let t = try! XCTUnwrap(e.paciente.turno)
+        XCTAssertEqual(e.fechaCabeceraHoy, "\(dia) · turno \(Fecha.relativa(t.fecha, hoy: hoy)) \(t.hora)")
         XCTAssertEqual(e.diasParaTurno.count, 10)
         XCTAssertTrue(e.diasParaTurno.allSatisfy { Fecha.diaSemana($0) <= 5 })
-        XCTAssertFalse(e.horariosLibres("2026-12-01").isEmpty)
-        e.cambiarTurnoPaciente(fecha: "2026-12-01", hora: "10:00")
-        XCTAssertEqual(e.paciente.turno?.fecha, "2026-12-01")
+        XCTAssertFalse(e.horariosLibres(e.diasParaTurno[3]).isEmpty)
+        let nuevo = e.diasParaTurno[3]
+        e.cambiarTurnoPaciente(fecha: nuevo, hora: "10:00")
+        XCTAssertEqual(e.paciente.turno?.fecha, nuevo)
         e.cancelarTurnoPaciente()
         XCTAssertNil(e.paciente.turno)
-        XCTAssertEqual(e.fechaCabeceraHoy, "\(dia) 25")
-        e.sacarTurnoPaciente(fecha: "2026-12-02", hora: "16:30", modalidad: .consultorio)
+        XCTAssertEqual(e.fechaCabeceraHoy, dia)
+        e.sacarTurnoPaciente(fecha: e.diasParaTurno[4], hora: "16:30", modalidad: .consultorio)
         XCTAssertEqual(e.paciente.turno?.modalidad, .consultorio)
     }
 
