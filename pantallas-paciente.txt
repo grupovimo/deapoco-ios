@@ -1,0 +1,29 @@
+# Lado del paciente: «nombre hora [oscuro]». Las del diseño primero (pantallas/png), después las nuevas.
+p-hoy 17:05
+p-foto 13:24
+p-avance 21:40
+p-avance-abajo 21:41
+p-mensajes 18:12
+p-turno 18:20
+carga 08:01
+p-semana 21:10
+p-logros 21:12
+p-celebracion 21:30
+p-resumen 21:31
+p-plan 08:05
+p-hoy.oscuro 17:05 oscuro
+p-compras 08:06
+p-sacar-turno 18:21
+p-sin-turno 18:22
+p-pago-mp 18:23
+p-perfil 20:10
+p-pagos 20:11
+p-avisos 20:12
+p-salud 20:13
+p-privacidad 20:14
+p-tus-datos 20:15
+p-historial 20:16
+p-registro 20:17
+p-hoy-vacio 08:30
+p-avance.oscuro 21:40 oscuro
+p-mensajes.oscuro 18:12 oscuro
