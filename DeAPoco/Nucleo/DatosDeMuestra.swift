@@ -1,9 +1,9 @@
 import Foundation
 
 /// Los datos de la maqueta: los de pantallas/app.html (Laura Ferreyra, nutri en Mar del Plata, y su paciente Sofía),
-/// con el resto completado con gente y comida de verdad. Hoy es el martes 25 de noviembre de 2026.
+/// con el resto completado con gente y comida de verdad. Hoy es el martes 24 de noviembre de 2026.
 extension DatosDeMuestra {
-    static let hoy = "2026-11-25"
+    static let hoy = "2026-11-24"
 
     // MARK: - Pacientes
 
@@ -37,7 +37,7 @@ extension DatosDeMuestra {
               dias: 7, racha: 23, sin: 0, meta: "Dos litros de agua", hechas: 5, novedad: "Cumplió su meta", tel: "+54 223 588-7714"),
             p("rocio", "Rocío Medina", tono: .az, edad: 29, desde: "2026-09-22", objetivo: "Rendir en el hockey",
               dias: 2, racha: 0, sin: 1, meta: "Desayunar antes de entrenar", hechas: 1, tel: "+54 223 430-1166"),
-            p("julian", "Julián Pereyra", tono: .az, edad: 33, sexo: .hombre, desde: "2026-11-25", servicio: "control", objetivo: "Ordenarse con las comidas",
+            p("julian", "Julián Pereyra", tono: .az, edad: 33, sexo: .hombre, desde: "2026-11-24", servicio: "control", objetivo: "Ordenarse con las comidas",
               dias: 3, racha: 1, sin: 0, tel: "+54 223 690-2245"),
             p("carla", "Carla Ruiz", tono: .lo, edad: 52, desde: "2026-03-03", objetivo: "Acompañar el colesterol",
               dias: 6, racha: 9, sin: 0, meta: "Legumbres dos veces por semana", hechas: 2, tel: "+54 223 501-3380"),
@@ -371,7 +371,7 @@ extension DatosDeMuestra {
         hoy: hoy, ahora: "17:05", desde: "2026-08-04",
         registros: registrosSofia, plan: planSofia,
         agua: 5, aguaMeta: 8, meta: "Fruta en la merienda", metaHechas: 3, metaTotal: 5,
-        racha: 12, mejorRacha: 15, comodines: 1, comodinUsado: "2026-11-20",
+        racha: 12, mejorRacha: 15, comodines: 1, comodinUsado: "2026-11-19",
         dias14: [.anotado, .no] + Array(repeating: .anotado, count: 7) + [.comodin, .anotado, .anotado, .anotado, .hoy],
         semanas: [3, 4, 2, 5, 6, 5, 4, 6, 7, 5, 6, 7, 7, 6, 7, 5],
         nivel: 3, faltanNivel: 2, logros: logros,
@@ -379,7 +379,7 @@ extension DatosDeMuestra {
                      Destacado(titulo: "Primera tarta casera", bajada: "De acelga, el domingo.", partes: 4, llenas: 1),
                      Destacado(titulo: "8 vasos", bajada: "Cinco días", partes: 2, llenas: 1)],
         mediciones: medidasSofia(), mostrarPeso: false, saludConectada: true, pasos: 7_840, sueno: 430,
-        turno: Turno(id: "t-sofia-jue", pacienteId: "sofia", fecha: "2026-11-27", hora: "11:30", duracion: 30, modalidad: .enLinea),
+        turno: Turno(id: "t-sofia-jue", pacienteId: "sofia", fecha: "2026-11-26", hora: "11:30", duracion: 30, modalidad: .enLinea),
         servicios: servicios.filter { $0.id != "primera" }, contratado: nil,
         pagos: [
             Cobro(id: "sp1", pacienteId: "sofia", concepto: "Primera consulta", monto: 65_000, fecha: "2026-08-04", pagado: true, medio: .mercadoPago, pagadoEl: "2026-08-04"),
@@ -409,8 +409,8 @@ extension DatosDeMuestra {
         enLinea: true, aceptaNuevos: true, slug: "laura", whatsapp: "+54 223 512-4470", instagram: "@laura.nutri.mdp",
         email: "laura.ferreyra@gmail.com", desde: 2014)
 
-    /// En la prueba de Profesional: le quedan 9 días (vence el 4/12).
-    static let suscripcion = Suscripcion(plan: .gratis, pruebaHasta: "2026-12-04", pruebaUsada: true, precioFijoHasta: "2027-05-25")
+    /// En la prueba de Profesional: le quedan 9 días (vence el 3/12).
+    static let suscripcion = Suscripcion(plan: .gratis, pruebaHasta: "2026-12-03", pruebaUsada: true, precioFijoHasta: "2027-05-24")
 
     // MARK: - Perfiles de onboarding (para abrir directo un lado)
 

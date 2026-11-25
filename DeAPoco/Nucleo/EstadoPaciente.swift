@@ -28,7 +28,7 @@ extension Estado {
             : "Del \(Fecha.diaMes(lunes)) al \(Fecha.diaMes(domingo))"
     }
 
-    /// «Martes 25 · turno el jueves 11:30»
+    /// «Martes 24 · turno el jueves 11:30»
     var fechaCabeceraHoy: String {
         let d = Fecha.diaLargo(paciente.hoy)
         let base = d.prefix(1).uppercased() + d.dropFirst() + " \(Fecha.dia(paciente.hoy))"

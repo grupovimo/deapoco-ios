@@ -67,7 +67,7 @@ final class BaseTests: XCTestCase {
     func testFormato() {
         XCTAssertEqual(Formato.plata(1_284_000), "$1.284.000")
         XCTAssertEqual(Formato.decimal(89.2), "89,2")
-        XCTAssertEqual(Fecha.larga("2026-11-25"), "Martes 25 de noviembre")
+        XCTAssertEqual(Fecha.larga("2026-11-24"), "Martes 24 de noviembre")
         XCTAssertEqual(Formato.lista(["Sofía", "Ana", "Carla"]), "Sofía, Ana y Carla")
     }
 }
