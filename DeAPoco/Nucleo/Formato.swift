@@ -94,7 +94,7 @@ enum Fecha {
         calendario.dateComponents([.day], from: fecha(a), to: fecha(b)).day ?? 0
     }
 
-    /// «Martes 25 de noviembre»
+    /// «Martes 24 de noviembre»
     static func larga(_ iso: String) -> String {
         let d = diasLargos[diaSemana(iso) - 1]
         return d.prefix(1).uppercased() + d.dropFirst() + " \(dia(iso)) de \(meses[mes(iso) - 1])"

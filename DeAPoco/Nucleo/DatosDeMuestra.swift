@@ -233,7 +233,7 @@ extension DatosDeMuestra {
     static let cobros: [Cobro] = {
         var c: [Cobro] = [
             Cobro(id: "co-julian", pacienteId: "julian", concepto: "Primera consulta", monto: 65_000, fecha: hoy),
-            Cobro(id: "co-rocio", pacienteId: "rocio", concepto: "Plan 3 meses · cuota 3", monto: 45_000, fecha: "2026-11-12", vence: "2026-11-26"),
+            Cobro(id: "co-rocio", pacienteId: "rocio", concepto: "Plan 3 meses · cuota 3", monto: 45_000, fecha: "2026-11-11", vence: "2026-11-25"),
             Cobro(id: "co-martin", pacienteId: "martin", concepto: "Control", monto: 48_000, fecha: "2026-11-18"),
             Cobro(id: "co-lucas", pacienteId: "lucas", concepto: "Control", monto: 48_000, fecha: "2026-11-20"),
             Cobro(id: "co-paula", pacienteId: "paula", concepto: "Plan 3 meses · cuota 2", monto: 45_000, fecha: "2026-11-21", vence: "2026-11-30"),
