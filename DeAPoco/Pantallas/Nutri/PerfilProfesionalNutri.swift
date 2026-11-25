@@ -197,7 +197,7 @@ struct AsiTeVen: View {
             }
             .background(Color.superficie)
             .clipShape(RoundedRectangle(cornerRadius: Radio.foto, style: .continuous))
-            .sombraFlotante()
+            .background { RoundedRectangle(cornerRadius: Radio.foto, style: .continuous).fill(Color.superficie).sombraFlotante() }
             .padding(.horizontal, Espacio.margen)
             .padding(.top, 8)
         }

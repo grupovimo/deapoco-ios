@@ -231,7 +231,7 @@ struct RaizNutri: View {
         case "n-precios": nav.pestana = .cobros; nav.cobros = [.precios]
         case "n-cobrar": nav.pestana = .cobros; nav.hoja = .cobrar("julian")
         case "n-link-pago": nav.pestana = .cobros; nav.hoja = .linkPago("co-rocio")
-        case "n-dar-turno": nav.pestana = .agenda; nav.hoja = .darTurno(paciente: nil, fecha: "2026-11-27", hora: nil)
+        case "n-dar-turno": nav.pestana = .agenda; nav.hoja = .darTurno(paciente: nil, fecha: Fecha.sumar(2, a: estado.hoy), hora: nil)
         case "n-turno": nav.pestana = .agenda; nav.hoja = .turno("t-rocio")
         case "n-nuevo-paciente": nav.pestana = .pacientes; nav.hoja = .nuevoPaciente
         default: break

@@ -250,7 +250,7 @@ struct HojaTurno: View {
                 Tarjeta {
                     Fila {
                         Avatar(foto: p.foto, iniciales: p.iniciales, tono: p.tono, tamano: 48)
-                        NomSub(nombre: t.tipo, sub: estado.resumenFicha(p))
+                        NomSub(nombre: t.tipo, sub: "\(t.modalidad.titulo) · \(Formato.plata(t.monto))")
                         estadoChip(t)
                     }
                     Divisor()

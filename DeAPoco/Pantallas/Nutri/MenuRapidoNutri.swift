@@ -21,8 +21,11 @@ struct MenuRapido: View {
         .padding(.horizontal, 16)
         .padding(.top, 22)
         .padding(.bottom, 16)
-        .background(Color.fondo, in: RoundedRectangle(cornerRadius: Radio.hoja, style: .continuous))
-        .shadow(color: Color.enlozado950.opacity(0.35), radius: 30, y: 30)
+        .background {
+            // La sombra va en la forma, no en el contenido: si no, cada tarjeta proyecta la suya sobre la hoja.
+            RoundedRectangle(cornerRadius: Radio.hoja, style: .continuous).fill(Color.fondo)
+                .shadow(color: Color.enlozado950.opacity(0.35), radius: 30, y: 30)
+        }
     }
 
     private func tile(_ i: Icono, _ t: String, _ s: String, _ tono: IconoCirculo.Tono, _ accion: @escaping () -> Void) -> some View {

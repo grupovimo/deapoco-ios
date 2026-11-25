@@ -79,7 +79,7 @@ private struct ParaHacerHoy: View {
     var body: some View {
         let aflojo = estado.pacientesActivos.filter { $0.sinAnotar >= 5 }.max { $0.sinAnotar < $1.sinAnotar }
         let revisar = estado.porRevisar
-        let sin = estado.sinConfirmar
+        let sin = estado.sinConfirmar.filter { $0.fecha == estado.hoy }
         let cantidad = (aflojo == nil ? 0 : 1) + (revisar.isEmpty ? 0 : 1) + (sin.isEmpty ? 0 : 1)
         TituloSeccion(texto: "Para hacer hoy", dato: "\(cantidad)")
         Tarjeta {
@@ -107,10 +107,9 @@ private struct ParaHacerHoy: View {
             }
             if !sin.isEmpty {
                 let nombres = sin.compactMap { estado.paciente($0.pacienteId)?.primerNombre }
-                let hoyTodos = sin.allSatisfy { $0.fecha == estado.hoy }
-                Fila(alto: 72) {
+                                Fila(alto: 72) {
                     IconoCirculo(icono: .reloj, tono: .aviso)
-                    NomSub(nombre: "\(sin.count) sin confirmar", sub: "\(Formato.lista(nombres)), \(hoyTodos ? "para hoy" : "hoy y mañana")")
+                    NomSub(nombre: "\(sin.count) sin confirmar", sub: "\(Formato.lista(nombres)), para hoy")
                     Boton(titulo: "Recordar", variante: .suave, alto: .chico) { estado.recordarTurnos(sin.map(\.id)) }
                 }
             }

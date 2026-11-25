@@ -63,7 +63,7 @@ final class NutriTests: XCTestCase {
     func testCobrar() { montar(HojaCobrar(pacienteId: "julian")) }
     func testLinkPago() { montar(HojaLinkPago(cobroId: "co-rocio")) }
     func testPrecios() { montar(NavigationStack { EditarPrecios() }) }
-    func testDarTurno() { montar(HojaDarTurno(pacienteId: nil, fecha: "2026-11-27", hora: nil)) }
+    func testDarTurno() { montar(HojaDarTurno(pacienteId: nil, fecha: Fecha.sumar(2, a: DatosDeMuestra.hoy), hora: nil)) }
     func testTurno() { montar(HojaTurno(turnoId: "t-rocio")) }
     func testTurnoInexistente() { montar(HojaTurno(turnoId: "nada")) }
     func testPacienteNuevo() { montar(HojaPacienteNuevo()) }
@@ -125,12 +125,15 @@ final class NutriTests: XCTestCase {
 
     func testAgendaYTurnos() {
         let e = Estado()
-        XCTAssertFalse(e.libres(en: "2026-11-27").isEmpty)
-        XCTAssertTrue(e.libres(en: "2026-11-29").isEmpty, "domingo")
-        let t = e.darTurno(pacienteId: "julian", fecha: "2026-11-27", hora: e.libres(en: "2026-11-27")[0], modalidad: .enLinea)
+        let jueves = Fecha.sumar(4 - Fecha.diaSemana(e.hoy), a: e.hoy)
+        let domingo = Fecha.sumar(7 - Fecha.diaSemana(e.hoy), a: e.hoy)
+        XCTAssertFalse(e.libres(en: jueves).isEmpty)
+        XCTAssertTrue(e.libres(en: domingo).isEmpty, "domingo")
+        let t = e.darTurno(pacienteId: "julian", fecha: jueves, hora: e.libres(en: jueves)[0], modalidad: .enLinea)
         XCTAssertEqual(e.proximoTurno(de: "julian")?.id, t.id)
-        e.cambiarTurno(t.id, fecha: "2026-11-28", hora: "19:00")
-        XCTAssertEqual(e.turno(t.id)?.fecha, "2026-11-28")
+        let viernes = Fecha.sumar(1, a: jueves)
+        e.cambiarTurno(t.id, fecha: viernes, hora: "19:00")
+        XCTAssertEqual(e.turno(t.id)?.fecha, viernes)
         e.cancelarTurno(t.id)
         XCTAssertNil(e.proximoTurno(de: "julian"))
         // Ocupar un hueco libre lo saca de la agenda.
@@ -165,13 +168,13 @@ final class NutriTests: XCTestCase {
     func testSuscripcion() {
         let e = Estado()
         XCTAssertTrue(e.enPrueba)
-        XCTAssertEqual(e.diasDePrueba, 9)
+        XCTAssertEqual(e.diasDePrueba, Fecha.dias(entre: e.hoy, y: e.suscripcion.pruebaHasta!))
         XCTAssertEqual(e.planActual, .profesional)
         XCTAssertEqual(e.planQueAlcanza, .profesional)
         XCTAssertEqual(PlanDAP.profesional.precioAnual, 149_000)
         e.comprar(.profesional, .mensual)
         XCTAssertEqual(e.suscripcion.planElegido, .profesional)
-        XCTAssertEqual(e.suscripcion.proximoCobro, "2026-12-04")
+        XCTAssertEqual(e.suscripcion.proximoCobro, e.suscripcion.pruebaHasta)
         XCTAssertTrue(e.suscripcion.facturas.isEmpty)
         let f = Estado()
         f.vencerPrueba()

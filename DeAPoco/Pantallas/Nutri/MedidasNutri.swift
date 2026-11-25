@@ -31,7 +31,7 @@ struct MedidasPaciente: View {
                                         etiqueta: "Mostrarle el peso a \(p.primerNombre)")
                         }
                     }
-                    BannerGrupo(.profe, titulo: "¿\(p.primerNombre) entrena con alguien?", texto: "Conectá con su profe.", cerrable: false)
+                    BannerGrupo(.profe, titulo: "¿\(p.primerNombre) entrena con alguien?", texto: "Conectá con su profe.", cerrable: false, compacta: true)
                 }
             }
             .padding(.horizontal, Espacio.margen)

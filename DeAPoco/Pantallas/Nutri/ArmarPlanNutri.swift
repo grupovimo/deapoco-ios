@@ -192,10 +192,6 @@ struct TarjetaComidaN: View {
                     }
                     hora
                 }
-                if comida.opciones.count > 1 {
-                    Pastillas(opciones: comida.opciones.indices.map { ($0, comida.opciones[$0].nombre) }, elegida: $opcion)
-                        .padding(.top, 6)
-                }
                 if let o = comida.opciones[safe: opcion] {
                     PlatoArmadoLeyendaN(opcion: o).padding(.top, 10)
                 }
@@ -204,7 +200,7 @@ struct TarjetaComidaN: View {
                     FilaItem(item: i, editable: editable, editar: { editar(i.id) }, subir: { mover(i.id, -1) },
                              bajar: { mover(i.id, 1) }, borrar: { borrar(i.id) })
                 }
-                if editable {
+                if editable && comida.opciones.isEmpty {
                     Button { Haptico.seleccion(); editar(nil) } label: {
                         HStack(spacing: 6) { IconoVista(.mas, tamano: 20); Text("Sumar algo").tipo(.texto(14, 700)) }
                             .foregroundStyle(Color.enlace)
@@ -212,12 +208,12 @@ struct TarjetaComidaN: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(Apretable())
-                    .padding(.top, 2)
+                    .padding(.top, -2)
                 }
             }
             .padding(.horizontal, 16)
             .padding(.top, 14)
-            .padding(.bottom, editable ? 4 : 14)
+            .padding(.bottom, editable && comida.opciones.isEmpty ? 4 : 14)
         }
     }
 
@@ -226,7 +222,8 @@ struct TarjetaComidaN: View {
         if editable {
             Menu {
                 ForEach(horas, id: \.self) { h in Button(h) { cambiarHora(h) } }
-            } label: { t.frame(minWidth: 44, minHeight: 44) }
+            } label: { t.frame(minWidth: 44, minHeight: 44, alignment: .trailing) }
+            .padding(.vertical, -10)
             .accessibilityLabel("Hora del \(comida.momento.titulo.lowercased()): \(comida.hora)")
         } else {
             t
@@ -265,11 +262,12 @@ private struct FilaItem: View {
                     Button("Sacar", role: .destructive, action: borrar)
                 } label: {
                     IconoVista(.asa, tamano: 20).foregroundStyle(Color.corteza400).frame(width: 32, height: 44)
+                        .contentShape(Rectangle())
                 }
                 .accessibilityLabel("Opciones de \(item.nombre)")
             }
         }
-        .padding(.vertical, 9)
+        .padding(.vertical, -1)
         .contentShape(Rectangle())
         .onTapGesture { if editable { Haptico.seleccion(); editar() } }
     }
