@@ -88,11 +88,12 @@ private struct PorCobrar: View {
 
     /// Lo de hoy primero, después lo que vence pronto, después lo más reciente.
     private var lista: [Cobro] {
-        estado.porCobrar.sorted { a, b in
+        let hoy = estado.hoy
+        return estado.porCobrar.sorted { a, b in
             func numero(_ f: String) -> Int { Int(f.replacingOccurrences(of: "-", with: "")) ?? 0 }
             func clave(_ c: Cobro) -> (Int, Int) {
-                if c.fecha == estado.hoy { return (0, 0) }
-                if let v = c.vence, Fecha.dias(entre: estado.hoy, y: v) <= 2 { return (1, numero(v)) }
+                if c.fecha == hoy { return (0, 0) }
+                if let v = c.vence, Fecha.dias(entre: hoy, y: v) <= 2 { return (1, numero(v)) }
                 return (2, -numero(c.fecha))
             }
             return clave(a) < clave(b)
