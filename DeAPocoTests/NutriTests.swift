@@ -152,7 +152,7 @@ final class NutriTests: XCTestCase {
         XCTAssertEqual(e.planNuevo(para: "sofia", modelo: nil).id, "plan-sofia-3", "sin modelo, abre el plan que ya tiene")
     }
 
-    func testMedidas() {
+    func testLogicaMedidas() {
         let e = Estado()
         XCTAssertEqual(e.diferencia(.cintura, de: "sofia") ?? 0, -6, accuracy: 0.01)
         XCTAssertEqual(e.etiquetasMeses(e.mediciones(de: "sofia")), ["AGO", "", "SEP", "", "", "OCT", "", "", "NOV", ""])
@@ -187,5 +187,5 @@ final class NutriTests: XCTestCase {
         XCTAssertEqual(f.activos, 43)
     }
 
-    func testQR() { XCTAssertNotNil(QRCodigo.imagen(DatosDeMuestra.perfilLaura.link.absoluteString)) }
+    func testCodigoQR() { XCTAssertNotNil(QRCodigo.imagen(DatosDeMuestra.perfilLaura.link.absoluteString)) }
 }
