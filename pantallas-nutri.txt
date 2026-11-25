@@ -1,0 +1,37 @@
+# Pantallas de la nutri: nombre, hora de la barra de estado y «oscuro» si va en modo oscuro.
+n-inicio 11:12
+n-agenda 11:12
+n-ficha 11:31
+n-plan 11:48
+n-revisar 12:05
+n-cobros 12:20
+n-menu 11:12
+n-pacientes 12:40
+n-medidas 11:52
+n-inicio.oscuro 11:12 oscuro
+n-agenda.oscuro 11:12 oscuro
+n-pacientes.oscuro 12:40 oscuro
+n-ficha-comidas 11:32
+n-ficha-pagos 11:33
+n-ficha-notas 11:34
+n-ficha-vacia 11:35
+n-anotar-medidas 11:53
+n-chat 11:20
+n-mensajes 11:19
+n-avisos 11:18
+n-perfil 9:40
+n-editar-perfil 9:41
+n-asi-te-ven 9:42
+n-qr 9:43
+n-ajustes 9:44
+n-suscripcion 9:45
+n-suscripcion-gratis 9:46
+n-elegir-plan 9:47
+n-compra 9:48
+n-tope 9:49
+n-precios 12:22
+n-cobrar 12:23
+n-link-pago 12:24
+n-dar-turno 11:14
+n-turno 11:15
+n-nuevo-paciente 12:41
