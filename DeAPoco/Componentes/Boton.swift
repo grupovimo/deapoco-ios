@@ -10,10 +10,10 @@ struct Apretable: ButtonStyle {
     }
 }
 
-/// Botones (.btn): prim (enlozado), suave (enlozado-100), loza, man (manteca, sobre la banda), vidrio (sobre la banda)
+/// Botones (.btn): prim (verde), suave (verde-100), crema 300, man (crema, sobre la banda), vidrio (sobre la banda)
 /// y texto. Chico (36, con 44 de área táctil), normal (44) y alto (54).
 struct Boton: View {
-    enum Variante { case prim, suave, loza, man, vidrio, texto, peligro }
+    enum Variante { case prim, suave, crema, man, vidrio, texto, peligro }
     enum Alto { case chico, normal, medio, alto }
 
     let titulo: String
@@ -67,8 +67,8 @@ struct Boton: View {
         switch variante {
         case .prim: return .marca
         case .suave: return .suave
-        case .loza: return .loza
-        case .man: return .mantecaFija
+        case .crema: return .superficie2
+        case .man: return .crema
         case .vidrio: return .vidrio
         case .texto: return .clear
         case .peligro: return .errorFondo
@@ -79,9 +79,9 @@ struct Boton: View {
         switch variante {
         case .prim: return .sobreMarca
         case .suave: return .sobreSuave
-        case .loza: return .texto
-        case .man: return .enlozado800
-        case .vidrio: return .mantecaFija
+        case .crema: return .texto
+        case .man: return .verde900
+        case .vidrio: return .crema
         case .texto: return .marca
         case .peligro: return .error
         }

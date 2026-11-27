@@ -46,14 +46,14 @@ struct BienAhi: Codable, Hashable, Identifiable {
     var por: String
 }
 
-/// Una tarjeta de logro de «Tu avance» (durazno, con su platito).
+/// Una tarjeta de logro de «Tu avance» (mandarina, con su platito).
 struct Destacado: Codable, Hashable, Identifiable {
     var id = UUID().uuidString
     var titulo: String
     var bajada: String
     var partes: Int
     var llenas: Int
-    /// Durazno lleno (el más importante) o durazno-100.
+    /// Mandarina llena (el más importante) o naranja-100.
     var fuerte = false
 }
 

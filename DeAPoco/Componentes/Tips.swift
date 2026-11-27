@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Un tip corto (.tip): tarjeta blanca, la foto de la nutri (o el rayo) y la etiqueta en rabanito 700.
+/// Un tip corto (.tip): tarjeta blanca, la foto de la nutri (o el rayo) y la etiqueta en naranja 700.
 struct TipVista: View {
     let tip: Tip
     var foto: String? = nil
@@ -43,14 +43,14 @@ struct CargaInicial: View {
             VStack(spacing: 0) {
                 Spacer()
                 VStack(spacing: 28) {
-                    Plato(partes: 4, llenas: 1 + paso % 3, hoy: 1 + paso % 3, servir: true)
+                    Gajos(partes: 4, llenas: 1 + paso % 3, servir: true)
                         .frame(width: 168, height: 168)
                         .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.6), value: paso)
-                    Titulo(lado == .nutri ? "Armamos tu día." : "Servimos tu día.", tamano: 28, centrado: true)
+                    Titulo("Armamos tu día.", tamano: 28, centrado: true)
                         .fixedSize(horizontal: false, vertical: true)
                     HStack(spacing: 6) {
                         ForEach(0..<3, id: \.self) { i in
-                            Circle().fill(i <= paso % 3 ? Color.marca : Color.manteca300).frame(width: 8, height: 8)
+                            Circle().fill(i <= paso % 3 ? Color.marca : Color.crema400).frame(width: 8, height: 8)
                         }
                     }
                     .accessibilityHidden(true)

@@ -71,10 +71,10 @@ private struct Circulo: View {
     let dia: DiaRacha
     var body: some View {
         switch dia {
-        case .anotado: Circle().fill(Color.rabanito500).frame(width: 18, height: 18)
-        case .no: Circle().fill(Color.loza).frame(width: 18, height: 18)
-        case .comodin: Circle().fill(Color.durazno).overlay(Circle().strokeBorder(Color.durazno700, lineWidth: 2)).frame(width: 18, height: 18)
-        case .hoy: Circle().fill(Color.superficie).overlay(Circle().strokeBorder(Color.rabanito500, lineWidth: 2)).frame(width: 18, height: 18)
+        case .anotado: Circle().fill(Color.acento).frame(width: 18, height: 18)
+        case .no: Circle().fill(Color.superficie2).frame(width: 18, height: 18)
+        case .comodin: Circle().fill(Color.mandarina).overlay(Circle().strokeBorder(Color.naranja800, lineWidth: 2)).frame(width: 18, height: 18)
+        case .hoy: Circle().fill(Color.superficie).overlay(Circle().strokeBorder(Color.acento, lineWidth: 2)).frame(width: 18, height: 18)
         }
     }
 }
@@ -85,12 +85,12 @@ private struct Comodin: View {
     let quedan: Int
     var body: some View {
         HStack(spacing: 12) {
-            IconoVista(.vuelta, tamano: 20).foregroundStyle(Color.tinta)
-                .frame(width: 40, height: 40).background(Color.durazno, in: Circle())
+            IconoVista(.vuelta, tamano: 20).foregroundStyle(Color.verde900)
+                .frame(width: 40, height: 40).background(Color.mandarina, in: Circle())
             VStack(alignment: .leading, spacing: 0) {
                 Text("Usaste el comodín el \(Fecha.diaLargo(usado))").tipo(.texto(15, 700)).foregroundStyle(Color.sobreLogro)
                 Text("Un día sin anotar no corta la racha. Te queda\(quedan == 1 ? "" : "n") \(quedan) este mes.")
-                    .tipo(.texto(13, 400)).foregroundStyle(Color(claro: 0x54402F, oscuro: 0xE3D3BF))
+                    .tipo(.texto(13, 400)).foregroundStyle(Color.texto2)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -101,16 +101,16 @@ private struct Comodin: View {
     }
 }
 
-/// Los platos de la semana (.platitos): cuatro partes por día; hoy en rabanito, lo que viene apagado.
+/// Los platos de la semana (.platitos): cuatro partes por día; hoy en naranja, lo que viene apagado.
 private struct Platitos: View {
     @Environment(Estado.self) private var estado
     var body: some View {
         Tarjeta(relleno: 16) {
-            Etiqueta("Platos de la semana")
+            Etiqueta("Tu semana, día por día")
             HStack(spacing: 6) {
                 ForEach(estado.semanaPaciente) { d in
                     VStack(spacing: 4) {
-                        Plato(partes: 4, llenas: d.llenas, hoy: d.esHoy && d.llenas < 4 ? d.llenas : nil, chico: true)
+                        Gajos(partes: 4, llenas: d.llenas, ahora: d.esHoy ? .siguiente : .no, chico: true)
                             .opacity(d.futuro ? 0.45 : 1)
                         Text(Fecha.diaCorto(d.fecha)).tipo(.texto(12, d.esHoy ? 700 : 600))
                             .foregroundStyle(d.esHoy ? Color.acentoTexto : Color.texto2)
@@ -160,10 +160,10 @@ private struct Nivel: View {
     let faltan: Int
     var body: some View {
         HStack(spacing: 14) {
-            Plato(partes: 4, llenas: 3, hoy: 3, fondo: .mantecaFija, borde: .enlozado800).frame(width: 76, height: 76)
+            Gajos(partes: 4, llenas: 3, falta: .pulpa).frame(width: 76, height: 76)
             VStack(alignment: .leading, spacing: 0) {
-                Etiqueta("De a poco", color: .durazno)
-                Text("Nivel \(nivel)").font(Estilo.titulo(24).font()).foregroundStyle(Color.mantecaFija).padding(.top, 2)
+                Etiqueta("De a poco", color: .mandarina)
+                Text("Nivel \(nivel)").font(Estilo.titulo(24).font()).foregroundStyle(Color.crema).padding(.top, 2)
                 Text(faltan == 1 ? "Una semana más anotando y llegás al \(nivel + 1)." : "\(Formato.enLetras(faltan).capitalized) semanas más anotando y llegás al \(nivel + 1).")
                     .tipo(.texto(13, 400)).foregroundStyle(Color.sobreBanda2).padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)
@@ -184,7 +184,7 @@ private struct LogroNuevo: View {
             VStack(alignment: .leading, spacing: 2) {
                 Etiqueta("Nuevo · \(logro.detalle.lowercased())", color: .logroTexto)
                 Text(logro.titulo).tipo(.texto(17, 700)).foregroundStyle(Color.texto).fixedSize(horizontal: false, vertical: true)
-                Text("Lo difícil es volver. Bien ahí.").tipo(.texto(13.5, 400)).foregroundStyle(Color(claro: 0x54402F, oscuro: 0xE3D3BF))
+                Text("Lo difícil es volver. Bien ahí.").tipo(.texto(13.5, 400)).foregroundStyle(Color.texto2)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -210,7 +210,7 @@ private struct Medalla: View {
     }
 }
 
-/// El cuenco (.cuenco): durazno con aro enlozado y el centro manteca; bloqueado, loza con borde punteado.
+/// El cuenco (.cuenco): mandarina con aro verde y el centro crema; bloqueado, crema 300 con borde punteado.
 struct Cuenco: View {
     let icono: Icono
     let conseguido: Bool
@@ -219,17 +219,17 @@ struct Cuenco: View {
     var body: some View {
         let k = lado / 76
         ZStack {
-            Circle().fill(conseguido ? Color.durazno : Color.loza)
-            Circle().strokeBorder(conseguido ? Color.enlozado800 : Color.manteca300, lineWidth: (conseguido ? 5 : 2) * k)
-            Circle().fill(Color.mantecaFija).padding(12 * k)
+            Circle().fill(conseguido ? Color.mandarina : Color.superficie2)
+            Circle().strokeBorder(conseguido ? Color.verde900 : Color.crema400, lineWidth: (conseguido ? 5 : 2) * k)
+            Circle().fill(Color.crema).padding(12 * k)
                 .overlay {
                     if !conseguido {
-                        Circle().strokeBorder(Color.manteca300, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3])).padding(12 * k)
+                        Circle().strokeBorder(Color.crema400, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3])).padding(12 * k)
                     }
                 }
-            IconoVista(icono, tamano: 26 * k, grosor: 2).foregroundStyle(conseguido ? Color.enlozado800 : Color.corteza400)
+            IconoVista(icono, tamano: 26 * k, grosor: 2).foregroundStyle(conseguido ? Color.verde900 : Color.salvia400)
             if conseguido {
-                IconoVista(.bocado, tamano: 20 * k).foregroundStyle(Color.rabanito500)
+                IconoVista(.bocado, tamano: 20 * k).foregroundStyle(Color.acento)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                     .padding(13 * k)
             }
@@ -248,7 +248,7 @@ private struct DetalleLogro: View {
             Titulo(logro.titulo, tamano: 26, centrado: true).fixedSize(horizontal: false, vertical: true)
             Text(logro.conseguido ? "Lo conseguiste: \(logro.detalle.lowercased())." : "Todavía no: \(logro.detalle.lowercased()). De a poco.")
                 .tipo(.texto(15, 400)).foregroundStyle(Color.texto2).multilineTextAlignment(.center)
-            Boton(titulo: "Listo", variante: .loza, alto: .medio, ancho: true) { cerrar() }.padding(.top, 6)
+            Boton(titulo: "Listo", variante: .crema, alto: .medio, ancho: true) { cerrar() }.padding(.top, 6)
         }
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

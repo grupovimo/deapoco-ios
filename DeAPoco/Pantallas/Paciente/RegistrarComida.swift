@@ -28,7 +28,7 @@ struct RegistrarComida: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color(hex: 0x0D1220).ignoresSafeArea()
+            Color(hex: 0x06180F).ignoresSafeArea()
             Visor(foto: foto, hayCamara: hayCamara, sacar: { camara = true }, galeria: $galeria)
                 .frame(height: 560)
                 .frame(maxWidth: .infinity)
@@ -70,11 +70,11 @@ struct RegistrarComida: View {
         .padding(.top, 4)
     }
 
-    // MARK: La hoja manteca
+    // MARK: La hoja crema
 
     private var hoja: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Capsule().fill(Color.manteca300).frame(width: 40, height: 5).frame(maxWidth: .infinity).padding(.bottom, 14)
+            Capsule().fill(Color.crema400).frame(width: 40, height: 5).frame(maxWidth: .infinity).padding(.bottom, 14)
             Titulo("¿Cómo llegaste \(estado.articulo(momento)) \(momento.titulo.lowercased())?", tamano: 24)
             HStack(spacing: 8) {
                 ForEach(Sensacion.allCases, id: \.self) { s in
@@ -101,7 +101,7 @@ struct RegistrarComida: View {
                 PhotosPicker(selection: $galeria, matching: .images) {
                     IconoVista(.galeria, tamano: 24).foregroundStyle(Color.texto)
                         .frame(width: 56, height: 54)
-                        .background(Color.loza, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .background(Color.superficie2, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 .buttonStyle(Apretable())
                 .accessibilityLabel("Elegir de la galería")
@@ -150,14 +150,14 @@ private struct Visor: View {
                 .accessibilityLabel("La foto de tu comida")
             } else {
                 VStack(spacing: 16) {
-                    IconoVista(.foto, tamano: 44).foregroundStyle(Color.mantecaFija.opacity(0.85))
+                    IconoVista(.foto, tamano: 44).foregroundStyle(Color.crema.opacity(0.85))
                     Text(hayCamara ? "Sacale una foto. No hace falta que sea linda." : "Elegí la foto de tu comida.")
-                        .tipo(.texto(16, 600)).foregroundStyle(Color.mantecaFija).multilineTextAlignment(.center)
+                        .tipo(.texto(16, 600)).foregroundStyle(Color.crema).multilineTextAlignment(.center)
                     HStack(spacing: 10) {
                         if hayCamara { Boton(titulo: "Sacar foto", icono: .foto, variante: .man, alto: .medio, accion: sacar) }
                         PhotosPicker(selection: $galeria, matching: .images) {
                             HStack(spacing: 8) { IconoVista(.galeria, tamano: 20); Text("Galería").tipo(.texto(15, 600)) }
-                                .foregroundStyle(Color.mantecaFija)
+                                .foregroundStyle(Color.crema)
                                 .padding(.horizontal, 16).frame(height: 48)
                                 .background(Color.vidrio, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                         }
@@ -166,15 +166,15 @@ private struct Visor: View {
                 }
                 .padding(.horizontal, 40)
             }
-            LinearGradient(stops: [.init(color: Color(hex: 0x0D1220, alpha: 0.55), location: 0), .init(color: .clear, location: 0.22),
-                                   .init(color: .clear, location: 0.8), .init(color: Color(hex: 0x0D1220, alpha: 0.5), location: 1)],
+            LinearGradient(stops: [.init(color: Color(hex: 0x06180F, alpha: 0.55), location: 0), .init(color: .clear, location: 0.22),
+                                   .init(color: .clear, location: 0.8), .init(color: Color(hex: 0x06180F, alpha: 0.5), location: 1)],
                            startPoint: .top, endPoint: .bottom)
                 .allowsHitTesting(false)
         }
     }
 }
 
-/// El selector de comida sobre la foto (.comidas-sel): vidrio oscuro, la elegida en manteca.
+/// El selector de comida sobre la foto (.comidas-sel): vidrio oscuro, la elegida en crema.
 private struct SelectorComida: View {
     @Binding var momento: Momento
     var body: some View {
@@ -188,9 +188,9 @@ private struct SelectorComida: View {
                             withAnimation(.snappy(duration: 0.22)) { momento = m; lector.scrollTo(m, anchor: .center) }
                         } label: {
                             Text(m.titulo).tipo(.texto(14, 600))
-                                .foregroundStyle(on ? Color.enlozado800 : Color.enlozado100)
+                                .foregroundStyle(on ? Color.verde900 : Color.verde100)
                                 .padding(.horizontal, 12).frame(height: 32)
-                                .background(on ? Color.mantecaFija : .clear, in: Capsule())
+                                .background(on ? Color.crema : .clear, in: Capsule())
                                 .frame(minHeight: 44).contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
@@ -202,7 +202,7 @@ private struct SelectorComida: View {
             }
             .scrollIndicators(.hidden)
             .frame(height: 38)
-            .background(Color.enlozado950.opacity(0.55), in: Capsule())
+            .background(Color.verde950.opacity(0.55), in: Capsule())
             .background(.ultraThinMaterial.opacity(0.4), in: Capsule())
             .clipShape(Capsule())
             .onAppear { lector.scrollTo(momento, anchor: .center) }
@@ -219,7 +219,7 @@ private struct TileSensacion: View {
     var body: some View {
         Button(action: { Haptico.seleccion(); accion() }) {
             VStack(spacing: 4) {
-                Plato(partes: 4, llenas: sensacion.llenas, chico: true).frame(width: 24, height: 24)
+                Gajos(partes: 4, llenas: sensacion.llenas, ahora: .no, chico: true).frame(width: 24, height: 24)
                 Text(sensacion.titulo).tipo(.texto(13, 600))
             }
             .foregroundStyle(elegida ? Color.sobreSuave : Color.texto3)

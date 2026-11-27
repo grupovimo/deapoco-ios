@@ -10,7 +10,7 @@ struct Celebracion: View {
 
     var body: some View {
         ZStack {
-            RadialGradient(colors: [Color(claro: 0xFFE6D6, oscuro: 0x3A2A2E), Color.fondo], center: UnitPoint(x: 0.5, y: 0.38),
+            RadialGradient(colors: [Color(claro: 0xFFE9D6, oscuro: 0x4A3A12), Color.fondo], center: UnitPoint(x: 0.5, y: 0.38),
                            startRadius: 0, endRadius: 520)
                 .ignoresSafeArea()
             VStack(spacing: 0) {
@@ -25,14 +25,14 @@ struct Celebracion: View {
                 VStack(spacing: 18) {
                     ZStack {
                         Migas(lado: 236)
-                        Plato(partes: semana ? 7 : 4, llenas: semana ? 7 : 4, servir: true).frame(width: 236, height: 236)
+                        Gajos(partes: semana ? 7 : 4, llenas: semana ? 7 : 4, servir: true).frame(width: 236, height: 236)
                     }
                     .frame(width: 236, height: 236)
                     Titulo(semana ? "Semana completa." : "Día completo.", tamano: 40, centrado: true)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 22)
                     Text(semana ? "Siete días anotando. De a poco, se nota." : "Las cuatro comidas, anotadas. De a poco, se nota.")
-                        .tipo(.texto(17, 400)).foregroundStyle(Color(claro: 0x54402F, oscuro: 0xE3D3BF))
+                        .tipo(.texto(17, 400)).foregroundStyle(Color.texto2)
                         .multilineTextAlignment(.center).frame(maxWidth: 260)
                     ChipEstado(texto: semana ? "Nivel \(estado.paciente.nivel) · +1 semana" : "Racha de \(estado.paciente.racha) días", tipo: .dur, alto: 30, tamano: 14)
                 }
@@ -122,7 +122,7 @@ struct ResumenCompartir: View {
     }
 }
 
-/// La tarjeta de la semana (.prev): 262 × 466, enlozado, el plato lleno, los datos y la foto abajo.
+/// La tarjeta de la semana (.prev): 262 × 466, verde, el plato lleno, los datos y la foto abajo.
 /// Con `paraImagen` usa sólo vistas de SwiftUI (el título de UIKit no se dibuja en ImageRenderer).
 struct TarjetaSemana: View {
     let racha: Int
@@ -131,28 +131,28 @@ struct TarjetaSemana: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color.enlozado800
+            Color.verde900
             VStack(spacing: 0) {
                 Spacer()
                 ZStack(alignment: .top) {
                     FotoRecortada(nombre: "plato-milanesa")
-                    LinearGradient(colors: [Color.enlozado800, Color.enlozado800.opacity(0)], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.4))
+                    LinearGradient(colors: [Color.verde900, Color.verde900.opacity(0)], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.4))
                 }
                 .frame(height: 200)
             }
             VStack(alignment: .leading, spacing: 0) {
-                Text("MI SEMANA").font(Estilo.texto(10, 700).font()).tracking(0.6).foregroundStyle(Color.durazno)
+                Text("MI SEMANA").font(Estilo.texto(10, 700).font()).tracking(0.6).foregroundStyle(Color.mandarina)
                 Group {
                     if paraImagen {
                         Text("Siete de siete, de\u{00A0}a\u{00A0}poco.").font(Estilo.titulo(28).font()).tracking(-0.56)
-                            .foregroundStyle(Color.mantecaFija).lineSpacing(-6).fixedSize(horizontal: false, vertical: true)
+                            .foregroundStyle(Color.crema).lineSpacing(-6).fixedSize(horizontal: false, vertical: true)
                     } else {
-                        Titulo("Siete de siete, de\u{00A0}a\u{00A0}poco.", tamano: 28, color: .mantecaFija)
+                        Titulo("Siete de siete, de\u{00A0}a\u{00A0}poco.", tamano: 28, color: .crema)
                     }
                 }
                 .padding(.top, 6)
                 HStack(spacing: 14) {
-                    Plato(partes: 7, llenas: 7, fondo: .mantecaFija, borde: .enlozado800).frame(width: 84, height: 84)
+                    Gajos(partes: 7, llenas: 7).frame(width: 84, height: 84)
                     VStack(alignment: .leading, spacing: 10) {
                         dato("\(racha)", "días seguidos")
                         dato("\(fotos)", "comidas con foto")
@@ -163,19 +163,19 @@ struct TarjetaSemana: View {
             .padding(.horizontal, 20).padding(.top, 22)
         }
         .overlay(alignment: .bottomLeading) {
-            Image("logotipo-enlozado").resizable().scaledToFit().frame(height: 15)
+            Image("logotipo-verde").resizable().scaledToFit().frame(height: 15)
                 .padding(.horizontal, 10).frame(height: 26)
-                .background(Color.mantecaFija.opacity(0.94), in: Capsule())
+                .background(Color.crema.opacity(0.94), in: Capsule())
                 .padding(.leading, 16).padding(.bottom, 14)
         }
         .frame(width: 262, height: 466)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .shadow(color: Color.enlozado950.opacity(paraImagen ? 0 : 0.3), radius: 25, y: 24)
+        .shadow(color: Color.verde950.opacity(paraImagen ? 0 : 0.3), radius: 25, y: 24)
     }
 
     private func dato(_ v: String, _ t: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(v).font(Estilo.numero(26).font()).foregroundStyle(Color.mantecaFija)
+            Text(v).font(Estilo.numero(26).font()).foregroundStyle(Color.crema)
             Text(t).tipo(.texto(11.5, 400)).foregroundStyle(Color.sobreBanda2)
         }
     }

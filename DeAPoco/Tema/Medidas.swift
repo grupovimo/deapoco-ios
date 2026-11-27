@@ -24,7 +24,7 @@ enum Espacio {
     static let bajoBarra: CGFloat = 112
 }
 
-/// Sombras cálidas, teñidas de corteza (nunca gris puro). El blur del CSS ≈ el doble del radio de SwiftUI.
+/// Sombras cálidas, teñidas de verde (nunca gris puro). El blur del CSS ≈ el doble del radio de SwiftUI.
 /// En oscuro, las tarjetas no llevan sombra sino un borde de 1 (#2C3C60), como en el diseño.
 private struct SombraTarjeta: ViewModifier {
     var radio: CGFloat
@@ -32,12 +32,12 @@ private struct SombraTarjeta: ViewModifier {
 
     func body(content: Content) -> some View {
         if esquema == .dark {
-            content.overlay(RoundedRectangle(cornerRadius: radio, style: .continuous).strokeBorder(Color(hex: 0x2C3C60), lineWidth: 1))
+            content.overlay(RoundedRectangle(cornerRadius: radio, style: .continuous).strokeBorder(Color(hex: 0x24503D), lineWidth: 1))
         } else {
             // .card: 0 1px 2px rgb(110 86 70 / .08), 0 10px 26px rgb(110 86 70 / .08)
             content
-                .shadow(color: Color.corteza.opacity(0.08), radius: 1, x: 0, y: 1)
-                .shadow(color: Color.corteza.opacity(0.08), radius: 13, x: 0, y: 10)
+                .shadow(color: Color.salvia.opacity(0.08), radius: 1, x: 0, y: 1)
+                .shadow(color: Color.salvia.opacity(0.08), radius: 13, x: 0, y: 10)
         }
     }
 }
@@ -47,17 +47,17 @@ extension View {
 
     /// --dap-sombra-1: 0 1px 2px rgb(110 86 70 / .10)
     func sombraChica() -> some View {
-        shadow(color: Color.corteza.opacity(0.10), radius: 1, x: 0, y: 1)
+        shadow(color: Color.salvia.opacity(0.10), radius: 1, x: 0, y: 1)
     }
 
     /// --dap-sombra-2: 0 6px 16px rgb(110 86 70 / .12)
     func sombraMedia() -> some View {
-        shadow(color: Color.corteza.opacity(0.12), radius: 8, x: 0, y: 6)
-            .shadow(color: Color.corteza.opacity(0.08), radius: 1.5, x: 0, y: 1)
+        shadow(color: Color.salvia.opacity(0.12), radius: 8, x: 0, y: 6)
+            .shadow(color: Color.salvia.opacity(0.08), radius: 1.5, x: 0, y: 1)
     }
 
     /// --dap-sombra-flotante: 0 24px 60px rgb(16 26 48 / .30) (tarjeta de la app sobre una foto).
     func sombraFlotante() -> some View {
-        shadow(color: Color.enlozado950.opacity(0.30), radius: 30, x: 0, y: 24)
+        shadow(color: Color.verde950.opacity(0.30), radius: 30, x: 0, y: 24)
     }
 }

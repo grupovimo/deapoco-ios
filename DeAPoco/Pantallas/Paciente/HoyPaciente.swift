@@ -7,6 +7,7 @@ struct HoyPaciente: View {
 
     var body: some View {
         PantallaPaciente {
+            MarcaApp()
             Cabecera(fecha: estado.fechaCabeceraHoy, titulo: "Tu plan de hoy") {
                 ChipRacha(dias: estado.paciente.racha) { nav.empujar(.semana) }
             }
@@ -24,14 +25,14 @@ struct HoyPaciente: View {
     }
 }
 
-/// La racha (.racha-chip): platito lleno y los días, en durazno-100.
+/// La racha (.racha-chip): platito lleno y los días, en naranja-100.
 struct ChipRacha: View {
     let dias: Int
     var accion: () -> Void
     var body: some View {
         Button(action: { Haptico.seleccion(); accion() }) {
             HStack(spacing: 6) {
-                Plato(partes: 7, llenas: dias > 0 ? 7 : 0, chico: true).frame(width: 30, height: 30)
+                Gajos(partes: 7, llenas: dias > 0 ? 7 : 0, chico: true).frame(width: 30, height: 30)
                 Text("\(dias)").font(Estilo.texto(17, 700).font()).monospacedDigit().foregroundStyle(Color.sobreLogro)
             }
             .padding(.leading, 6).padding(.trailing, 14)
@@ -46,15 +47,15 @@ struct ChipRacha: View {
     }
 }
 
-/// El plato del día (.plato-hoy): 4 partes, la que toca punteada, «2 de 4» y la frase.
+/// El día en un anillo de gajos (.plato-hoy): 4 partes, la que toca en mandarina, «2 de 4» y la frase.
 private struct PlatoDelDia: View {
     @Environment(Estado.self) private var estado
     var body: some View {
         let hechas = estado.comidasHechasHoy
         Tarjeta(relleno: 16) {
             HStack(spacing: 16) {
-                Plato(partes: 4, llenas: hechas, hoy: hechas < 4 ? hechas : nil, servir: true)
-                    .frame(width: 128, height: 128)
+                Gajos(forma: .anillo, partes: 4, llenas: hechas, servir: true)
+                    .frame(width: 104, height: 104)
                     .accessibilityLabel("\(hechas) de 4 comidas anotadas")
                 VStack(alignment: .leading, spacing: 8) {
                     Numero(valor: "\(hechas)", tamano: 40, unidad: " de 4", tamanoUnidad: 17)
@@ -116,7 +117,7 @@ private struct FilaComida: View {
     @ViewBuilder private var derecha: some View {
         if registro != nil {
             IconoVista(.check, tamano: 16, grosor: 2.6).foregroundStyle(.white)
-                .frame(width: 28, height: 28).background(Color.rabanito500, in: Circle())
+                .frame(width: 28, height: 28).background(Color.acento, in: Circle())
         } else if toca {
             HStack(spacing: 8) {
                 IconoVista(.foto, tamano: 16)
@@ -150,7 +151,7 @@ struct TarjetaAgua: View {
                             estado.tomarAgua(i + 1 == a ? -1 : i + 1 - a)
                         } label: {
                             IconoVista(.agua, tamano: 20)
-                                .foregroundStyle(i < a ? Color(claro: 0x2E5293, oscuro: 0x9DB4E8) : Color(claro: 0x9C8573, oscuro: 0x4A5C82))
+                                .foregroundStyle(i < a ? Color(claro: 0x1A4A37, oscuro: 0xB5C6BA) : Color(claro: 0x7C8F83, oscuro: 0x2A5A44))
                                 .frame(width: 22, height: 44)
                                 .contentShape(Rectangle())
                         }
@@ -202,7 +203,7 @@ private struct LoTuyo: View {
                 Fila(alto: 60) {
                     Avatar(foto: estado.paciente.foto, iniciales: "SB")
                     NomSub(nombre: "Tu perfil y ajustes", sub: "Tus datos, pagos, Apple Salud y la cuenta")
-                    IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                    IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
                 }
                 .contentShape(Rectangle())
             }
@@ -216,7 +217,7 @@ private struct LoTuyo: View {
                 IconoCirculo(icono: i, tono: .az)
                     .overlay(alignment: .topTrailing) { if badge > 0 { Badge(n: badge, aro: .superficie).offset(x: 4, y: -4) } }
                 NomSub(nombre: t, sub: s)
-                IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
             }
             .contentShape(Rectangle())
         }

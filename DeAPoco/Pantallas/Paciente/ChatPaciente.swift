@@ -42,7 +42,7 @@ struct ChatPaciente: View {
                                 Text(r).tipo(.texto(14, 600)).foregroundStyle(Color.enlace)
                                     .padding(.horizontal, 14).frame(height: 36)
                                     .background(Color.superficie, in: Capsule())
-                                    .overlay(Capsule().strokeBorder(Color(claro: 0xC6D4F2, oscuro: 0x2C3C60), lineWidth: 1.5))
+                                    .overlay(Capsule().strokeBorder(Color(claro: 0xDCD6C2, oscuro: 0x24503D), lineWidth: 1.5))
                                     .frame(minHeight: 44).contentShape(Rectangle())
                             }
                             .buttonStyle(Apretable())
@@ -151,7 +151,7 @@ private struct CabeceraChat: View {
     }
 }
 
-/// Una burbuja (.bur): la nutri en blanco a la izquierda, uno en enlozado a la derecha.
+/// Una burbuja (.bur): la nutri en blanco a la izquierda, uno en verde a la derecha.
 private struct Burbuja: View {
     let mensaje: Mensaje
     var body: some View {
@@ -198,7 +198,7 @@ private struct Burbuja: View {
 
     private func hora(_ mio: Bool) -> some View {
         Text(mensaje.hora).font(Estilo.texto(11, 400).font()).monospacedDigit()
-            .foregroundStyle(mio ? Color(claro: 0xC6D4F2, oscuro: 0x2E5293) : Color.texto2)
+            .foregroundStyle(mio ? Color(claro: 0xB5C6BA, oscuro: 0x466253) : Color.texto2)
     }
 }
 

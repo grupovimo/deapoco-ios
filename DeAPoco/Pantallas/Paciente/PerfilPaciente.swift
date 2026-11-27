@@ -74,7 +74,7 @@ struct PerfilPaciente: View {
             Fila(alto: 60) {
                 IconoCirculo(icono: i, tono: tono)
                 NomSub(nombre: t, sub: s)
-                IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
             }
             .contentShape(Rectangle())
         }
@@ -166,7 +166,7 @@ struct AvisosPaciente: View {
                         if i > 0 { Divisor() }
                         Button { abrir(a) } label: {
                             Fila(alto: 64) {
-                                IconoCirculo(icono: a.tipo.icono, tono: a.leido ? .loza : .az)
+                                IconoCirculo(icono: a.tipo.icono, tono: a.leido ? .crema : .az)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(a.titulo).tipo(.texto(15, a.leido ? 600 : 700)).foregroundStyle(Color.texto)
                                     Text(a.texto).tipo(.texto(13, 400)).foregroundStyle(Color.texto2).lineLimit(2)
@@ -175,7 +175,7 @@ struct AvisosPaciente: View {
                                 VStack(alignment: .trailing, spacing: 6) {
                                     Text(Fecha.dias(entre: a.fecha, y: estado.paciente.hoy) == 0 ? a.hora : Fecha.relativa(a.fecha, hoy: estado.paciente.hoy))
                                         .tipo(.texto(12, 600)).monospacedDigit().foregroundStyle(Color.texto2)
-                                    if !a.leido { Circle().fill(Color.rabanito500).frame(width: 8, height: 8).accessibilityLabel("Sin leer") }
+                                    if !a.leido { Circle().fill(Color.acento).frame(width: 8, height: 8).accessibilityLabel("Sin leer") }
                                 }
                             }
                             .contentShape(Rectangle())
@@ -280,7 +280,7 @@ struct PrivacidadPaciente: View {
                     Fila(alto: 60) {
                         IconoCirculo(icono: .bajar, tono: .az)
                         NomSub(nombre: "Bajar mis datos", sub: "Un archivo con todo lo tuyo")
-                        IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                        IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
                     }
                     .contentShape(Rectangle())
                 }
@@ -353,13 +353,13 @@ struct TusDatos: View {
                     Fila(alto: 56, vertical: 6) {
                         Text(m.titulo).tipo(.texto(15, 600)).foregroundStyle(Color.texto).frame(maxWidth: .infinity, alignment: .leading)
                         if let h = perfil.horarios[m] {
-                            Boton(titulo: "", icono: .menos, variante: .loza, alto: .chico) { mover(m, -30) }
+                            Boton(titulo: "", icono: .menos, variante: .crema, alto: .chico) { mover(m, -30) }
                                 .accessibilityLabel("Más temprano")
                             Text(h).font(Estilo.texto(16, 600).font()).monospacedDigit().foregroundStyle(Color.texto).frame(width: 56)
-                            Boton(titulo: "", icono: .mas, variante: .loza, alto: .chico) { mover(m, 30) }
+                            Boton(titulo: "", icono: .mas, variante: .crema, alto: .chico) { mover(m, 30) }
                                 .accessibilityLabel("Más tarde")
                         } else {
-                            Boton(titulo: "No la hago", variante: .loza, alto: .chico) { perfil.horarios[m] = m.horaSugerida }
+                            Boton(titulo: "No la hago", variante: .crema, alto: .chico) { perfil.horarios[m] = m.horaSugerida }
                         }
                     }
                 }
@@ -414,7 +414,7 @@ struct HistorialComidas: View {
                             FotoComida(foto: r.foto, lado: 80, radio: 14, icono: .plan)
                                 .frame(maxWidth: .infinity)
                                 .overlay(alignment: .bottomLeading) {
-                                    Text(r.momento.titulo.prefix(3)).tipo(.texto(11, 700)).foregroundStyle(Color.tinta)
+                                    Text(r.momento.titulo.prefix(3)).tipo(.texto(11, 700)).foregroundStyle(Color.verde900)
                                         .padding(.horizontal, 6).padding(.vertical, 2)
                                         .background(Color.white.opacity(0.92), in: RoundedRectangle(cornerRadius: 7)).padding(6)
                                 }

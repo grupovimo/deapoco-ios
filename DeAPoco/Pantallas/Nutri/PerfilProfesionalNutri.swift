@@ -14,9 +14,9 @@ struct PerfilProfesional: View {
                 Boton(titulo: "Editar", icono: .lapiz, variante: .vidrio, alto: .chico) { nav.hoja = .editarPerfil }
             }
             HStack(spacing: 14) {
-                Avatar(foto: p.foto, iniciales: inicialesDe(p.nombre), tamano: 72, anillo: .mantecaFija, anilloAncho: 3)
+                Avatar(foto: p.foto, iniciales: inicialesDe(p.nombre), tamano: 72, anillo: .crema, anilloAncho: 3)
                 VStack(alignment: .leading, spacing: 4) {
-                    Titulo(p.nombre, tamano: 28, color: .mantecaFija)
+                    Titulo(p.nombre, tamano: 28, color: .crema)
                     Text("\(p.titulo) · \(p.matricula.isEmpty ? "sin matrícula" : p.matricula)").tipo(.texto(14, 400)).foregroundStyle(Color.sobreBanda2)
                 }
             }
@@ -29,7 +29,7 @@ struct PerfilProfesional: View {
                     ForEach(Array(p.pendientes.enumerated()), id: \.offset) { i, x in
                         if i > 0 { Divisor() }
                         Button { Haptico.seleccion(); nav.hoja = .editarPerfil } label: {
-                            Fila { IconoCirculo(icono: .lapiz, tono: .dur); NomSub(nombre: x.0, sub: x.1, lineas: 2); IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400) }
+                            Fila { IconoCirculo(icono: .lapiz, tono: .dur); NomSub(nombre: x.0, sub: x.1, lineas: 2); IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400) }
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(Apretable())
@@ -94,14 +94,14 @@ private struct Completitud: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Perfil \(porcentaje)% completo").tipo(.texto(14, 600)).foregroundStyle(Color.mantecaFija)
+                Text("Perfil \(porcentaje)% completo").tipo(.texto(14, 600)).foregroundStyle(Color.crema)
                 Spacer()
-                Text(porcentaje >= 90 ? "Listo para mostrar" : "Te falta poco").tipo(.texto(13, 600)).foregroundStyle(Color.durazno)
+                Text(porcentaje >= 90 ? "Listo para mostrar" : "Te falta poco").tipo(.texto(13, 600)).foregroundStyle(Color.mandarina)
             }
             GeometryReader { g in
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.vidrio12)
-                    Capsule().fill(Color.durazno).frame(width: g.size.width * Double(porcentaje) / 100)
+                    Capsule().fill(Color.mandarina).frame(width: g.size.width * Double(porcentaje) / 100)
                 }
             }
             .frame(height: 8)
@@ -124,7 +124,7 @@ private struct TarjetaLink: View {
                 Spacer(minLength: 0)
             }
             HStack(spacing: 10) {
-                Boton(titulo: "Copiar", icono: .copiar, variante: .loza, alto: .medio, ancho: true) {
+                Boton(titulo: "Copiar", icono: .copiar, variante: .crema, alto: .medio, ancho: true) {
                     UIPasteboard.general.string = p.link.absoluteString
                     estado.avisar("Link copiado.")
                 }
@@ -166,7 +166,7 @@ struct AsiTeVen: View {
                     }
                     Text("«\(p.frase)»").font(Estilo.titulo(19).font()).foregroundStyle(Color.titulo).padding(.top, 6)
                     Text(p.sobreMi).tipo(.texto(15, 400)).foregroundStyle(Color.texto).fixedSize(horizontal: false, vertical: true)
-                    Fluir(espacio: 6) { ForEach(p.especialidades, id: \.self) { ChipEstado(texto: $0, tipo: .loza) } }.padding(.top, 4)
+                    Fluir(espacio: 6) { ForEach(p.especialidades, id: \.self) { ChipEstado(texto: $0, tipo: .crema) } }.padding(.top, 4)
                     ForEach(p.lugares) { l in
                         HStack(spacing: 8) {
                             IconoVista(.lugar, tamano: 16).foregroundStyle(Color.texto2)
@@ -241,7 +241,7 @@ struct HojaQR: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)
-            .background(Color.loza, in: RoundedRectangle(cornerRadius: Radio.foto, style: .continuous))
+            .background(Color.superficie2, in: RoundedRectangle(cornerRadius: Radio.foto, style: .continuous))
         } pie: {
             PieHojaN {
                 if let qr = QRCodigo.imagen(p.link.absoluteString) {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Revisar comidas (p6): una pila de fotos, de a una, con comentarios rápidos. Fondo enlozado-950 siempre.
+/// Revisar comidas (p6): una pila de fotos, de a una, con comentarios rápidos. Fondo verde-950 siempre.
 struct RevisarComidas: View {
     nonisolated(unsafe) static var empezarEn = 0
     @Environment(Estado.self) private var estado
@@ -16,7 +16,7 @@ struct RevisarComidas: View {
 
     var body: some View {
         ZStack {
-            Color.enlozado950.ignoresSafeArea()
+            Color.verde950.ignoresSafeArea()
             VStack(spacing: 0) {
                 cabecera
                 if indice < ids.count, let r = estado.nutri.registros.first(where: { $0.id == ids[indice] }) {
@@ -47,7 +47,7 @@ struct RevisarComidas: View {
             HStack {
                 Redondo(icono: .x, tamanoIcono: 20, etiqueta: "Cerrar") { cerrar() }
                 Spacer()
-                Text(ids.isEmpty ? "" : "\(min(indice + 1, ids.count)) de \(ids.count)").tipo(.texto(16, 700)).foregroundStyle(Color.mantecaFija)
+                Text(ids.isEmpty ? "" : "\(min(indice + 1, ids.count)) de \(ids.count)").tipo(.texto(16, 700)).foregroundStyle(Color.crema)
                     .monospacedDigit()
                 Spacer()
                 Redondo(icono: .chev, tamanoIcono: 20, etiqueta: "Saltear") { siguiente() }
@@ -57,7 +57,7 @@ struct RevisarComidas: View {
             .frame(height: 48)
             HStack(spacing: 4) {
                 ForEach(0..<ids.count, id: \.self) { i in
-                    Capsule().fill(i <= indice ? Color.mantecaFija : Color.mantecaFija.opacity(0.2)).frame(height: 4)
+                    Capsule().fill(i <= indice ? Color.crema : Color.crema.opacity(0.2)).frame(height: 4)
                 }
             }
             .padding(.horizontal, 20)
@@ -67,9 +67,9 @@ struct RevisarComidas: View {
 
     private func pila(_ r: Registro) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color(hex: 0x1F2D4C))
+            RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color(hex: 0x123B2B))
                 .padding(.horizontal, 28).offset(y: -20)
-            RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color(hex: 0x2A3A5E))
+            RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color(hex: 0x1A4A37))
                 .padding(.horizontal, 14).offset(y: -10)
             TarjetaFoto(registro: r)
                 .offset(x: arrastre.width, y: arrastre.height * 0.2)
@@ -114,13 +114,13 @@ private struct TarjetaFoto: View {
         let r = registro
         let p = estado.paciente(r.pacienteId)
         ZStack {
-            if let f = r.foto { FotoRecortada(nombre: f) } else { Color.enlozado900 }
-            LinearGradient(stops: [.init(color: Color.enlozado950.opacity(0.55), location: 0), .init(color: .clear, location: 0.26),
-                                   .init(color: .clear, location: 0.58), .init(color: Color.enlozado950.opacity(0.86), location: 1)],
+            if let f = r.foto { FotoRecortada(nombre: f) } else { Color.verde850 }
+            LinearGradient(stops: [.init(color: Color.verde950.opacity(0.55), location: 0), .init(color: .clear, location: 0.26),
+                                   .init(color: .clear, location: 0.58), .init(color: Color.verde950.opacity(0.86), location: 1)],
                            startPoint: .top, endPoint: .bottom)
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 10) {
-                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .durazno, anillo: .white)
+                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .mandarina, anillo: .white)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(p?.nombre ?? "").tipo(.texto(15, 700))
                         Text("\(r.momento.titulo) · \(Fecha.relativa(r.fecha, hoy: estado.hoy)) \(r.hora)").tipo(.texto(13, 400)).opacity(0.9)
@@ -128,7 +128,7 @@ private struct TarjetaFoto: View {
                     .foregroundStyle(.white)
                 }
                 Spacer()
-                Etiqueta(r.enPlan == nil ? "Lo que comió" : "En el plan", color: .enlozado100)
+                Etiqueta(r.enPlan == nil ? "Lo que comió" : "En el plan", color: .verde100)
                 Text(r.enPlan ?? r.descripcion).tipo(.texto(17, 600)).foregroundStyle(.white).padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)
                 Fluir(espacio: 6) {
@@ -151,7 +151,7 @@ private struct TarjetaFoto: View {
     }
 }
 
-/// Los comentarios rápidos (.rapidos): el elegido en manteca con el bocado rabanito.
+/// Los comentarios rápidos (.rapidos): el elegido en crema con el bocado naranja.
 private struct Rapidos: View {
     @Binding var elegido: String?
     var body: some View {
@@ -164,15 +164,15 @@ private struct Rapidos: View {
                 } label: {
                     HStack(spacing: 6) {
                         if t == RevisarComidas.rapidos[0] {
-                            IconoVista(.bocado, tamano: 14).foregroundStyle(on ? Color.rabanito500 : Color.mantecaFija)
+                            IconoVista(.bocado, tamano: 14).foregroundStyle(on ? Color.acento : Color.crema)
                         }
                         Text(t).tipo(.texto(14.5, 600))
                     }
-                    .foregroundStyle(on ? Color.enlozado800 : Color.mantecaFija)
+                    .foregroundStyle(on ? Color.verde900 : Color.crema)
                     .padding(.horizontal, 14)
                     .frame(height: 40)
-                    .background(on ? Color.mantecaFija : Color.mantecaFija.opacity(0.1), in: Capsule())
-                    .overlay(Capsule().strokeBorder(on ? Color.mantecaFija : Color.mantecaFija.opacity(0.16), lineWidth: 1))
+                    .background(on ? Color.crema : Color.crema.opacity(0.1), in: Capsule())
+                    .overlay(Capsule().strokeBorder(on ? Color.crema : Color.crema.opacity(0.16), lineWidth: 1))
                     .frame(minHeight: 44)
                 }
                 .buttonStyle(Apretable())
@@ -184,7 +184,7 @@ private struct Rapidos: View {
     }
 }
 
-/// La caja para escribirle (.escribir) y el botón de mandar en manteca.
+/// La caja para escribirle (.escribir) y el botón de mandar en crema.
 private struct Escribir: View {
     @Binding var texto: String
     var escribiendo: FocusState<Bool>.Binding
@@ -193,22 +193,22 @@ private struct Escribir: View {
     var body: some View {
         HStack(spacing: 10) {
             HStack {
-                TextField("", text: $texto, prompt: Text("Escribile algo…").foregroundColor(.corteza300))
+                TextField("", text: $texto, prompt: Text("Escribile algo…").foregroundColor(.salvia300))
                     .font(Estilo.texto(15, 400).font())
-                    .foregroundStyle(Color.mantecaFija)
-                    .tint(Color.durazno)
+                    .foregroundStyle(Color.crema)
+                    .tint(Color.mandarina)
                     .focused(escribiendo)
                     .submitLabel(.send)
                     .onSubmit(enviar)
-                IconoVista(.mic, tamano: 24).foregroundStyle(Color.mantecaFija).accessibilityHidden(true)
+                IconoVista(.mic, tamano: 24).foregroundStyle(Color.crema).accessibilityHidden(true)
             }
             .padding(.leading, 18).padding(.trailing, 10)
             .frame(height: 52)
-            .background(Color.mantecaFija.opacity(0.1), in: Capsule())
-            .overlay(Capsule().strokeBorder(Color.mantecaFija.opacity(0.18), lineWidth: 1))
+            .background(Color.crema.opacity(0.1), in: Capsule())
+            .overlay(Capsule().strokeBorder(Color.crema.opacity(0.18), lineWidth: 1))
             Button { Haptico.suave(); enviar() } label: {
-                IconoVista(.enviar, tamano: 24).foregroundStyle(Color.enlozado800)
-                    .frame(width: 52, height: 52).background(Color.mantecaFija, in: Circle())
+                IconoVista(.enviar, tamano: 24).foregroundStyle(Color.verde900)
+                    .frame(width: 52, height: 52).background(Color.crema, in: Circle())
             }
             .buttonStyle(Apretable())
             .accessibilityLabel("Mandar y pasar a la siguiente")
@@ -224,8 +224,8 @@ private struct Terminado: View {
     var body: some View {
         VStack(spacing: 18) {
             Spacer()
-            Plato(partes: 4, llenas: 4, servir: true, fondo: .enlozado900, borde: .mantecaFija).frame(width: 140, height: 140)
-            Titulo("Miraste todo.", tamano: 32, color: .mantecaFija, centrado: true).fixedSize(horizontal: false, vertical: true)
+            Gajos(partes: 4, llenas: 4, servir: true).frame(width: 140, height: 140)
+            Titulo("Miraste todo.", tamano: 32, color: .crema, centrado: true).fixedSize(horizontal: false, vertical: true)
             Text("Les llegó tu respuesta. Mañana hay más.").tipo(.texto(16, 400)).foregroundStyle(Color.sobreBanda2)
             Spacer()
             Boton(titulo: "Volver", variante: .man, alto: .alto, ancho: true, accion: cerrar)

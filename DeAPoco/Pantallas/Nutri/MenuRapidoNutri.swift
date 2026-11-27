@@ -24,7 +24,7 @@ struct MenuRapido: View {
         .background {
             // La sombra va en la forma, no en el contenido: si no, cada tarjeta proyecta la suya sobre la hoja.
             RoundedRectangle(cornerRadius: Radio.hoja, style: .continuous).fill(Color.fondo)
-                .shadow(color: Color.enlozado950.opacity(0.35), radius: 30, y: 30)
+                .shadow(color: Color.verde950.opacity(0.35), radius: 30, y: 30)
         }
     }
 

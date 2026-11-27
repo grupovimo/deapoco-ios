@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Regla deslizable para números (peso, altura, edad): se arrastra y el valor queda en el centro, marcado en rabanito.
+/// Regla deslizable para números (peso, altura, edad): se arrastra y el valor queda en el centro, marcado en naranja.
 struct Regla: View {
     @Binding var valor: Double
     var rango: ClosedRange<Double>
@@ -58,7 +58,7 @@ struct Regla: View {
                 .scrollIndicators(.hidden)
                 .overlay {
                     // El indicador del centro.
-                    Capsule().fill(Color.rabanito500).frame(width: 4, height: 56).offset(y: -8).allowsHitTesting(false)
+                    Capsule().fill(Color.acento).frame(width: 4, height: 56).offset(y: -8).allowsHitTesting(false)
                 }
                 .mask(LinearGradient(stops: [.init(color: .clear, location: 0), .init(color: .black, location: 0.18),
                                              .init(color: .black, location: 0.82), .init(color: .clear, location: 1)],

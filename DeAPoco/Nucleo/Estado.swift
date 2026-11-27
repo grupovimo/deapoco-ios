@@ -343,7 +343,7 @@ final class Estado {
         let limpio = nombre.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !limpio.isEmpty, puedeSumarPaciente else { return nil }
         let id = "nuevo-\(UUID().uuidString.prefix(6))"
-        let p = Paciente(id: id, nombre: limpio, tono: [.durazno, .az, .lo][nutri.pacientes.count % 3], edad: 30,
+        let p = Paciente(id: id, nombre: limpio, tono: [.mandarina, .az, .lo][nutri.pacientes.count % 3], edad: 30,
                          telefono: telefono, desde: hoy, servicioId: servicioId, objetivo: objetivo,
                          diasSemana: 0, racha: 0, sinAnotar: 0)
         Haptico.exito()

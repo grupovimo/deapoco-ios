@@ -1,19 +1,18 @@
 import SwiftUI
 import UIKit
 
-/// Fraunces (variable: opsz 9–144, wght, SOFT, WONK) para títulos y Hanken Grotesk (variable: wght) para todo
-/// lo que se lee y para todas las cifras. Fraunces nunca va en cifras que se comparan.
+/// Nunito (variable: wght) para títulos y cifras grandes, y Nunito Sans (variable: wght, opsz) para todo lo que se
+/// lee (marca/sistema/tokens.css, v2 «la naranja en gajos»). Los dígitos de las dos ya son tabulares.
 enum Tipo {
     private static let wght = NSNumber(value: 0x7767_6874) // 'wght'
     private static let opsz = NSNumber(value: 0x6F70_737A) // 'opsz'
-    private static let soft = NSNumber(value: 0x534F_4654) // 'SOFT'
-    private static let wonk = NSNumber(value: 0x574F_4E4B) // 'WONK'
     nonisolated(unsafe) private static var cache: [String: UIFont] = [:]
     private static let candado = NSLock()
 
     enum Familia: String {
-        case fraunces, hanken
-        var nombrePostScript: String { self == .fraunces ? "Fraunces-9ptBlack" : "HankenGrotesk-Regular" }
+        case nunito, nunitoSans
+        /// El nombre de la instancia por defecto de cada variable (la que registra UIAppFonts).
+        var nombrePostScript: String { self == .nunito ? "Nunito-ExtraLight" : "NunitoSans-12ptExtraLight" }
     }
 
     static func uiFont(_ familia: Familia, tamano: CGFloat, peso: CGFloat) -> UIFont {
@@ -21,11 +20,9 @@ enum Tipo {
         candado.lock(); defer { candado.unlock() }
         if let f = cache[clave] { return f }
         var ejes: [NSNumber: NSNumber] = [wght: NSNumber(value: Double(peso))]
-        if familia == .fraunces {
-            // Óptico automático (a 32 pt, opsz 32), Soft 100 (terminaciones redondas) y Wonk 0.
-            ejes[opsz] = NSNumber(value: Double(min(max(tamano, 9), 144)))
-            ejes[soft] = 100
-            ejes[wonk] = 0
+        if familia == .nunitoSans {
+            // Óptico automático, como el navegador: de 6 a 12.
+            ejes[opsz] = NSNumber(value: Double(min(max(tamano, 6), 12)))
         }
         // CoreText reusa la instancia por nombre y tamaño: se copia la base con la variación pedida.
         let base = CTFontCreateWithName(familia.nombrePostScript as CFString, tamano, nil)
@@ -38,11 +35,11 @@ enum Tipo {
 
 /// Estilos de la escala de las pantallas: 11/12/13/14/15/17/20/24/30/36.
 enum Estilo {
-    /// Fraunces 600, Soft 100, interlineado 1,04, tracking −0,015 em. En minúsculas, como frase.
+    /// Nunito 800, interlineado 1,04, tracking −0,025 em. En minúsculas, como frase.
     case titulo(CGFloat)
-    /// Hanken 600 con cifras tabulares y tracking −0,02 em (`.num`).
+    /// Nunito 800 con cifras tabulares y tracking −0,02 em (`.num`).
     case numero(CGFloat)
-    /// Hanken con peso explícito (400 texto, 600 secundario fuerte y botones, 700 énfasis).
+    /// Nunito Sans con peso explícito (400 texto, 600 secundario fuerte y botones, 700 énfasis).
     case texto(CGFloat, CGFloat)
     /// Etiqueta: 12, 700, mayúsculas, 0,06 em.
     case etiqueta
@@ -74,10 +71,10 @@ enum Estilo {
     func uiFont(_ dts: DynamicTypeSize = .large) -> UIFont {
         let t = tamano * factor(dts)
         switch self {
-        case .titulo: return Tipo.uiFont(.fraunces, tamano: t, peso: 600)
-        case .numero: return Tipo.uiFont(.hanken, tamano: t, peso: 600)
-        case .texto(_, let peso): return Tipo.uiFont(.hanken, tamano: t, peso: peso)
-        case .etiqueta: return Tipo.uiFont(.hanken, tamano: t, peso: 700)
+        case .titulo: return Tipo.uiFont(.nunito, tamano: t, peso: 800)
+        case .numero: return Tipo.uiFont(.nunito, tamano: t, peso: 800)
+        case .texto(_, let peso): return Tipo.uiFont(.nunitoSans, tamano: t, peso: peso)
+        case .etiqueta: return Tipo.uiFont(.nunitoSans, tamano: t, peso: 700)
         }
     }
 
@@ -88,7 +85,7 @@ enum Estilo {
 
     var tracking: CGFloat {
         switch self {
-        case .titulo(let t): return t * -0.015
+        case .titulo(let t): return t * -0.025
         case .numero(let t): return t * -0.02
         case .etiqueta: return 12 * 0.06
         case .texto: return 0
@@ -110,8 +107,8 @@ private struct ModificadorTipo: ViewModifier {
             base.lineLimit(1).minimumScaleFactor(0.6).fixedSize(horizontal: false, vertical: true)
                 .frame(height: alto * estilo.factor(dts))
         } else if case .texto(let t, _) = estilo {
-            // Hanken trae 1,30 de interlineado natural; el diseño usa 1,35 (body) en párrafos.
-            base.lineSpacing(t * 0.05)
+            // Nunito Sans trae 1,36 de interlineado natural: alcanza para el 1,35 de los párrafos del diseño.
+            base.lineSpacing(0)
         } else {
             base
         }
@@ -125,7 +122,7 @@ extension View {
     }
 }
 
-/// Título en Fraunces con el interlineado exacto del diseño (1,04) y `text-wrap: balance`: si ocupa dos o más
+/// Título en Nunito con el interlineado exacto del diseño (1,04) y `text-wrap: balance`: si ocupa dos o más
 /// renglones, se busca el ancho más angosto que mantiene la misma cantidad de renglones, así no quedan viudas.
 struct Titulo: View {
     let texto: String
@@ -228,7 +225,7 @@ struct Etiqueta: View {
     }
 }
 
-/// Número en Hanken 600 tabular con una unidad más chica al lado (el `<small>` del diseño).
+/// Número en Nunito 800 tabular con una unidad más chica al lado (el `<small>` del diseño).
 struct Numero: View {
     let valor: String
     var tamano: CGFloat

@@ -22,8 +22,8 @@ Para abrir una pantalla directo: argumento de arranque `-pantalla <nombre>` (las
 - `DeAPoco/App`: el punto de entrada, la raíz (onboarding o la app de cada lado, con la carga y su tip) y el onboarding: se elige el lado y después una pregunta por pantalla.
   - Nutri: nombre, matrícula, especialidades, dónde atiende, cuántos pacientes, «Traé lo que ya usás» (Google Calendar, Mercado Pago, WhatsApp).
   - Paciente: la invitación de su nutri, nombre, sexo, edad, objetivo, cómo come hoy, restricciones y alergias, horarios de comida, Apple Salud.
-- `DeAPoco/Tema`: colores (escalas y roles que cambian en oscuro, igual que `tokens.css`), tipografía (Fraunces y Hanken Grotesk variables por `UIFontDescriptor`, títulos con interlineado 1,04 y renglones balanceados), radios, espacios y sombras cálidas.
-- `DeAPoco/Componentes`: el plato (`plato.js` porteado), el plato armado, la curva de medidas (nunca balanza), la dona de cobros, la barra «la mesa», botones, chips, tarjetas, íconos del sistema de marca, la regla, el tip, la carga y la promo «De Grupo Vimo» hacia Otra Más.
+- `DeAPoco/Tema`: colores (escalas y roles que cambian en oscuro, igual que `tokens.css`), tipografía (Nunito y Nunito Sans variables por `UIFontDescriptor`, títulos con interlineado 1,04 y renglones balanceados), radios, espacios y sombras cálidas.
+- `DeAPoco/Componentes`: los gajos (`gajos.js` porteado: la rodaja y el anillo), el plato armado, la curva de medidas (nunca balanza), la dona de cobros, la barra «la mesa», botones, chips, tarjetas, íconos del sistema de marca, la regla, el tip, la carga y la promo «De Grupo Vimo» hacia Otra Más.
 - `DeAPoco/Nucleo`: modelos, el protocolo `Datos`, `DatosDeMuestra` y `Estado` (`@Observable`), que es lo único que leen las pantallas. También la suscripción de la nutri (Gratis hasta 10 pacientes, Profesional, Consultorio, prueba de 14 días).
 - `DeAPoco/Pantallas/Nutri` y `DeAPoco/Pantallas/Paciente`: las pantallas de cada lado. `Comunes/Cuenta.swift` es el pie de Ajustes de los dos lados (apariencia, ver el otro lado, rehacer el inicio y cerrar sesión).
 

@@ -30,8 +30,8 @@
 	<string>Para sacarle una foto a tu comida y mandársela a tu nutri.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Fraunces.ttf</string>
-		<string>HankenGrotesk.ttf</string>
+		<string>Nunito.ttf</string>
+		<string>NunitoSans.ttf</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>

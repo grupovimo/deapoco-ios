@@ -9,7 +9,7 @@ struct ItemMesa<T: Hashable>: Identifiable {
 }
 
 /// La barra «la mesa» (.mesa-nav): blanca, de borde a borde, con el ala del plato arriba. En el centro, el plato:
-/// disco manteca con borde enlozado (el isotipo hecho botón). La pestaña activa se sirve en un cuenco durazno.
+/// un gajo naranja hecho botón. La pestaña activa va sobre naranja 100.
 /// Grilla 1fr 1fr 84 1fr 1fr, 90 de alto con el indicador de inicio.
 struct BarraMesa<T: Hashable>: View {
     let izquierda: [ItemMesa<T>]
@@ -66,19 +66,19 @@ struct BarraMesa<T: Hashable>: View {
     }
 }
 
-/// El fondo blanco con el radio de arriba, la sombra cálida y el ala (la línea loza de arriba).
+/// El fondo blanco con el radio de arriba, la sombra cálida y el ala (la línea crema 300 de arriba).
 private struct FondoMesa: View {
     @Environment(\.colorScheme) private var esquema
     var body: some View {
         let forma = UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28, style: .continuous)
         forma
             .fill(Color.superficie)
-            .shadow(color: esquema == .dark ? .black.opacity(0.3) : Color.corteza700.opacity(0.10), radius: 17, y: -14)
+            .shadow(color: esquema == .dark ? .black.opacity(0.3) : Color.salvia700.opacity(0.10), radius: 17, y: -14)
             .overlay(alignment: .top) {
                 forma.stroke(Color.borde, lineWidth: 1).mask(alignment: .top) { Rectangle().frame(height: 14) }
             }
             .overlay(alignment: .top) {
-                Capsule().fill(esquema == .dark ? Color(hex: 0x2C3C60) : Color.loza.opacity(0.9)).frame(height: 3)
+                Capsule().fill(esquema == .dark ? Color(hex: 0x24503D) : Color.superficie2.opacity(0.9)).frame(height: 3)
                     .padding(.horizontal, 22).padding(.top, 5)
             }
             .ignoresSafeArea(edges: .bottom)
@@ -86,7 +86,8 @@ private struct FondoMesa: View {
     }
 }
 
-/// El plato del centro (.plato-b): 70, borde enlozado de 6, aro blanco de 5 y el ala loza por dentro.
+/// El botón del centro (.plato-b): un gajo hecho botón. 66, naranja 500 con aro de 6 del color de la barra e ícono
+/// verde; para cerrar, verde con el ícono crema.
 struct PlatoBoton: View {
     let icono: Icono
     let etiqueta: String
@@ -97,14 +98,12 @@ struct PlatoBoton: View {
     var body: some View {
         Button(action: { Haptico.suave(); accion() }) {
             ZStack {
-                Circle().fill(Color.superficie).frame(width: 80, height: 80)
-                Circle().fill(cerrar ? Color.enlozado800 : Color.mantecaFija)
-                    .overlay(Circle().strokeBorder(esquema == .dark && !cerrar ? Color.enlozado800 : Color.enlozado800, lineWidth: 6))
-                    .overlay(Circle().strokeBorder(cerrar ? Color.mantecaFija.opacity(0.2) : Color(hex: 0xF3E6CC), lineWidth: 1.5).padding(5))
-                    .frame(width: 70, height: 70)
-                    .shadow(color: esquema == .dark ? .black.opacity(0.35) : Color.enlozado800.opacity(0.28), radius: 11, y: 10)
-                IconoVista(cerrar ? .x : icono, tamano: 26, grosor: 2.1)
-                    .foregroundStyle(cerrar ? Color.mantecaFija : Color.enlozado800)
+                Circle().fill(Color.superficie).frame(width: 78, height: 78)
+                Circle().fill(cerrar ? Color.verde900 : Color.naranja500)
+                    .frame(width: 66, height: 66)
+                    .shadow(color: esquema == .dark ? .black.opacity(0.35) : Color.naranja600.opacity(0.30), radius: 11, y: 10)
+                IconoVista(cerrar ? .x : icono, tamano: 28, grosor: 2.4)
+                    .foregroundStyle(cerrar ? Color.crema : Color.verde900)
                     .contentTransition(.symbolEffect)
             }
             .frame(width: 80, height: 80)

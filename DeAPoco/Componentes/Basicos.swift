@@ -3,7 +3,7 @@ import UIKit
 
 // MARK: - Banda
 
-/// La banda enlozada de arriba (lado de la nutri): radio 28 abajo, 20 de aire al pie, y se extiende detrás de la
+/// La banda verde de arriba (lado de la nutri): radio 28 abajo, 20 de aire al pie, y se extiende detrás de la
 /// barra de estado (también al estirar la lista hacia abajo).
 struct Banda<Contenido: View>: View {
     var abajo: CGFloat = 20
@@ -26,7 +26,7 @@ struct Banda<Contenido: View>: View {
 
 private struct SobreBandaClave: EnvironmentKey { static let defaultValue = false }
 extension EnvironmentValues {
-    /// Dentro de la banda enlozada: los controles cambian a manteca y vidrio.
+    /// Dentro de la banda verde: los controles cambian a crema y vidrio.
     var sobreBanda: Bool {
         get { self[SobreBandaClave.self] }
         set { self[SobreBandaClave.self] = newValue }
@@ -50,7 +50,7 @@ struct Tarjeta<Contenido: View>: View {
     }
 }
 
-/// Divisor de 1 entre filas (corteza-200).
+/// Divisor de 1 entre filas (salvia-200).
 struct Divisor: View {
     var body: some View { Rectangle().fill(Color.borde).frame(height: 1) }
 }
@@ -91,7 +91,7 @@ struct NomSub: View {
     }
 }
 
-/// Título de sección (.titsec): Fraunces 20 a la izquierda y un dato o enlace a la derecha.
+/// Título de sección (.titsec): Nunito 20 a la izquierda y un dato o enlace a la derecha.
 struct TituloSeccion: View {
     let texto: String
     var dato: String? = nil
@@ -122,13 +122,13 @@ struct TituloSeccion: View {
 
 // MARK: - Avatares
 
-enum TonoAvatar: String, Codable, Hashable { case durazno, az, lo }
+enum TonoAvatar: String, Codable, Hashable { case mandarina, az, lo }
 
-/// Avatar (.av): foto redonda o iniciales sobre durazno, enlozado-100 o loza.
+/// Avatar (.av): foto redonda o iniciales sobre mandarina, verde-100 o crema 300.
 struct Avatar: View {
     var foto: String? = nil
     var iniciales: String = ""
-    var tono: TonoAvatar = .durazno
+    var tono: TonoAvatar = .mandarina
     var tamano: CGFloat = 40
     var anillo: Color? = nil
     var anilloAncho: CGFloat = 2
@@ -154,10 +154,10 @@ struct Avatar: View {
     }
 
     private var fondo: Color {
-        switch tono { case .durazno: return .durazno; case .az: return .enlozado100; case .lo: return Color(hex: 0xF3E6CC) }
+        switch tono { case .mandarina: return .mandarina; case .az: return .verde100; case .lo: return .crema300 }
     }
     private var frente: Color {
-        switch tono { case .durazno: return .tinta; case .az: return .enlozado800; case .lo: return .corteza700 }
+        switch tono { case .mandarina: return .verde900; case .az: return .verde900; case .lo: return .salvia700 }
     }
 }
 
@@ -176,7 +176,7 @@ struct FotoRecortada: View {
                     .frame(width: w, height: h)
                     .offset(x: -(w - g.size.width) * foco.x, y: -(h - g.size.height) * foco.y)
             } else {
-                Color.loza
+                Color.superficie2
             }
         }
         .clipped()
@@ -184,7 +184,7 @@ struct FotoRecortada: View {
     }
 }
 
-/// La foto de una comida (`.foto`): loza de fondo, radio 14, o el ícono si todavía no hay foto.
+/// La foto de una comida (`.foto`): crema 300 de fondo, radio 14, o el ícono si todavía no hay foto.
 struct FotoComida: View {
     var foto: String?
     var lado: CGFloat = 44
@@ -193,7 +193,7 @@ struct FotoComida: View {
 
     var body: some View {
         ZStack {
-            Color.loza
+            Color.superficie2
             if let foto {
                 FotoRecortada(nombre: foto)
             } else {
@@ -207,7 +207,7 @@ struct FotoComida: View {
 
 // MARK: - Controles redondos, chips, íconos en círculo
 
-/// Círculo de 40 (.redondo): vidrio sobre la banda, blanco (cl) sobre manteca, oscuro sobre fotos.
+/// Círculo de 40 (.redondo): vidrio sobre la banda, blanco (cl) sobre crema, oscuro sobre fotos.
 struct Redondo: View {
     enum Variante { case vidrio, claro, oscuro, marca }
     let icono: Icono
@@ -239,13 +239,13 @@ struct Redondo: View {
         switch variante {
         case .vidrio: return .vidrio
         case .claro: return .superficie
-        case .oscuro: return Color.enlozado950.opacity(0.55)
+        case .oscuro: return Color.verde950.opacity(0.55)
         case .marca: return .marca
         }
     }
     private var frente: Color {
         switch variante {
-        case .vidrio: return .mantecaFija
+        case .vidrio: return .crema
         case .claro: return .marca
         case .oscuro: return .white
         case .marca: return .sobreMarca
@@ -260,7 +260,7 @@ private struct SombraSiClaro: ViewModifier {
     }
 }
 
-/// El número rojo (.badge): rabanito 700 con aro del color de lo que tiene detrás.
+/// El número rojo (.badge): naranja 700 con aro del color de lo que tiene detrás.
 struct Badge: View {
     let n: Int
     var aro: Color = .banda
@@ -280,7 +280,7 @@ struct Badge: View {
 
 /// Chip de estado (.chip): siempre con ícono y palabra, nunca sólo color.
 struct ChipEstado: View {
-    enum Tipo { case ok, aviso, info, loza, dur, error, vidrio, banda }
+    enum Tipo { case ok, aviso, info, crema, dur, error, vidrio, banda }
     let texto: String
     var icono: Icono? = nil
     var tipo: Tipo = .ok
@@ -305,7 +305,7 @@ struct ChipEstado: View {
         case .ok: return .okFondo
         case .aviso: return .avisoFondo
         case .info: return .suave
-        case .loza: return .loza
+        case .crema: return .superficie2
         case .dur: return .logroSuave
         case .error: return .errorFondo
         case .vidrio: return Color.white.opacity(0.16)
@@ -317,18 +317,18 @@ struct ChipEstado: View {
         case .ok: return .ok
         case .aviso: return .aviso
         case .info: return .sobreSuave
-        case .loza: return .texto3
+        case .crema: return .texto3
         case .dur: return .logroTexto
         case .error: return .error
         case .vidrio: return .white
-        case .banda: return .mantecaFija
+        case .banda: return .crema
         }
     }
 }
 
 /// Ícono en círculo de 40 (.icono-c).
 struct IconoCirculo: View {
-    enum Tono { case aviso, az, dur, ok, salud, loza }
+    enum Tono { case aviso, az, dur, ok, salud, crema }
     let icono: Icono
     var tono: Tono = .az
     var tamano: CGFloat = 40
@@ -348,7 +348,7 @@ struct IconoCirculo: View {
         case .dur: return .logroSuave
         case .ok: return .okFondo
         case .salud: return Color(claro: 0xFDE7EA, oscuro: 0x3A1A22)
-        case .loza: return .loza
+        case .crema: return .superficie2
         }
     }
     private var frente: Color {
@@ -358,12 +358,12 @@ struct IconoCirculo: View {
         case .dur: return .logroTexto
         case .ok: return .ok
         case .salud: return Color(hex: 0xD5223F)
-        case .loza: return .texto2
+        case .crema: return .texto2
         }
     }
 }
 
-/// El interruptor del diseño (.toggle): 50 × 30, enlozado prendido, corteza-200 apagado.
+/// El interruptor del diseño (.toggle): 50 × 30, verde prendido, salvia-200 apagado.
 struct Interruptor: View {
     @Binding var prendido: Bool
     var etiqueta: String
@@ -390,7 +390,7 @@ struct Interruptor: View {
     }
 }
 
-/// Pastillas (.seg): 34 de alto; la elegida en enlozado.
+/// Pastillas (.seg): 34 de alto; la elegida en verde.
 struct Pastillas<T: Hashable>: View {
     let opciones: [(T, String)]
     @Binding var elegida: T
@@ -423,16 +423,16 @@ struct Pastillas<T: Hashable>: View {
     }
 
     private func fondo(_ on: Bool) -> Color {
-        if sobreBanda { return on ? .mantecaFija : .vidrio12 }
-        return on ? .marca : .loza
+        if sobreBanda { return on ? .crema : .vidrio12 }
+        return on ? .marca : .superficie2
     }
     private func frente(_ on: Bool) -> Color {
-        if sobreBanda { return on ? .enlozado800 : .enlozado100 }
+        if sobreBanda { return on ? .verde900 : .verde100 }
         return on ? .sobreMarca : .texto3
     }
 }
 
-/// Selector chico (.mini-seg): loza con la opción elegida en blanco.
+/// Selector chico (.mini-seg): crema 300 con la opción elegida en blanco.
 struct MiniSeg<T: Hashable>: View {
     let opciones: [(T, String)]
     @Binding var elegida: T
@@ -463,14 +463,14 @@ struct MiniSeg<T: Hashable>: View {
         }
         .padding(.horizontal, 3)
         .frame(height: 34)
-        .background(Color.loza, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .background(Color.superficie2, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
         .fixedSize()
     }
 }
 
 // MARK: - Navegación propia
 
-/// «‹ Pacientes» a la izquierda (16/600) y algo a la derecha. Sobre la banda va en manteca.
+/// «‹ Pacientes» a la izquierda (16/600) y algo a la derecha. Sobre la banda va en crema.
 struct NavAtras<Derecha: View>: View {
     var atras: String?
     var icono: Icono = .atras
@@ -489,7 +489,7 @@ struct NavAtras<Derecha: View>: View {
                     IconoVista(icono, tamano: 24)
                     if let atras { Text(atras).tipo(.texto(16, 600)) }
                 }
-                .foregroundStyle(sobreBanda ? Color.mantecaFija : Color.marca)
+                .foregroundStyle(sobreBanda ? Color.crema : Color.marca)
                 .frame(minWidth: 44, minHeight: 44, alignment: .leading)
                 .contentShape(Rectangle())
             }
@@ -524,7 +524,7 @@ struct Cabecera<Derecha: View>: View {
                 if let fecha {
                     Text(fecha).tipo(.texto(14, 600)).foregroundStyle(sobreBanda ? Color.sobreBanda2 : Color.texto2)
                 }
-                Titulo(titulo, tamano: tamano, color: sobreBanda ? .mantecaFija : .titulo)
+                Titulo(titulo, tamano: tamano, color: sobreBanda ? .crema : .titulo)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             derecha()
@@ -540,13 +540,29 @@ extension Cabecera where Derecha == EmptyView {
     }
 }
 
+/// La marca arriba de los inicios (.marca-app): la rodaja y «de a poco» en un renglón, 24 de alto. En color sobre
+/// crema; en negativo sobre la banda y en modo oscuro.
+struct MarcaApp: View {
+    @Environment(\.sobreBanda) private var sobreBanda
+    @Environment(\.colorScheme) private var esquema
+    var body: some View {
+        Image(sobreBanda || esquema == .dark ? "horizontal-negativo" : "horizontal-color")
+            .resizable().scaledToFit()
+            .frame(height: 24)
+            .frame(maxWidth: .infinity, minHeight: 26, alignment: .leading)
+            .padding(.horizontal, Espacio.margen)
+            .accessibilityLabel("De a Poco")
+            .accessibilityAddTraits(.isHeader)
+    }
+}
+
 /// Cabecera de la banda con el título abajo a la izquierda y un dato a la derecha («Agenda · Noviembre»).
 struct CabeceraBanda: View {
     let titulo: String
     var dato: String?
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
-            Titulo(titulo, tamano: 32, color: .mantecaFija)
+            Titulo(titulo, tamano: 32, color: .crema)
             Spacer(minLength: 8)
             if let dato { Text(dato).tipo(.texto(15, 600)).foregroundStyle(Color.sobreBanda2).padding(.bottom, 4) }
         }
@@ -580,13 +596,13 @@ struct AvisoFlotante: View {
     let texto: String
     var body: some View {
         HStack(spacing: 8) {
-            IconoVista(.check, tamano: 20).foregroundStyle(Color.durazno)
-            Text(texto).tipo(.texto(15, 600)).foregroundStyle(Color.mantecaFija).multilineTextAlignment(.leading)
+            IconoVista(.check, tamano: 20).foregroundStyle(Color.mandarina)
+            Text(texto).tipo(.texto(15, 600)).foregroundStyle(Color.crema).multilineTextAlignment(.leading)
         }
         .padding(.horizontal, 16)
         .frame(minHeight: 48)
-        .background(Color.enlozado900, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .shadow(color: Color.enlozado950.opacity(0.3), radius: 16, y: 10)
+        .background(Color.verde850, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Color.verde950.opacity(0.3), radius: 16, y: 10)
         .padding(.horizontal, 20)
         .accessibilityAddTraits(.isStaticText)
     }
@@ -607,7 +623,7 @@ struct Vacio: View {
             if let icono {
                 IconoCirculo(icono: icono, tono: .az, tamano: 64, tamanoIcono: 28)
             } else {
-                Plato(partes: 4, llenas: 0, hoy: 0).frame(width: 72, height: 72)
+                Gajos(partes: 4, llenas: 0).frame(width: 72, height: 72)
             }
             Text(titulo).font(Estilo.titulo(22).font()).foregroundStyle(Color.titulo).multilineTextAlignment(.center)
             if let texto {
@@ -665,7 +681,7 @@ struct Fluir: Layout {
 
 // MARK: - Barra de estado
 
-/// La barra de estado clara (sobre la banda o fotos) u oscura (sobre manteca). En modo oscuro, siempre clara.
+/// La barra de estado clara (sobre la banda o fotos) u oscura (sobre crema). En modo oscuro, siempre clara.
 private struct BarraDeEstado: ViewModifier {
     let clara: Bool
     @Environment(\.colorScheme) private var esquema

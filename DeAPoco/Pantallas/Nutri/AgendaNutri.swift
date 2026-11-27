@@ -19,7 +19,7 @@ struct AgendaNutri: View {
                     nav.hoja = .darTurno(paciente: nil, fecha: elegido < estado.hoy ? estado.hoy : elegido, hora: nil)
                 }
                 if elegido != estado.hoy {
-                    Boton(titulo: "Hoy", variante: .loza, alto: .medio) { withAnimation(.snappy) { dia = estado.hoy } }
+                    Boton(titulo: "Hoy", variante: .crema, alto: .medio) { withAnimation(.snappy) { dia = estado.hoy } }
                 }
             }
             .padding(.top, 8)
@@ -27,7 +27,7 @@ struct AgendaNutri: View {
     }
 }
 
-/// La semana (.semana): lun a dom, el elegido en manteca, un punto si hay turnos. Se desliza de semana en semana.
+/// La semana (.semana): lun a dom, el elegido en crema, un punto si hay turnos. Se desliza de semana en semana.
 private struct SemanaBanda: View {
     @Binding var dia: String
     @Environment(Estado.self) private var estado
@@ -64,13 +64,13 @@ private struct DiaSemana: View {
     var body: some View {
         Button(action: accion) {
             VStack(spacing: 4) {
-                Text(Fecha.diaCorto(fecha)).tipo(.texto(12, 600)).foregroundStyle(elegido ? Color.corteza : Color.sobreBanda2)
-                Text("\(Fecha.dia(fecha))").tipo(.numero(18)).foregroundStyle(elegido ? Color.enlozado800 : Color.mantecaFija)
-                Circle().fill(hayTurnos ? (elegido ? Color.rabanito500 : Color.mantecaFija.opacity(0.5)) : .clear).frame(width: 5, height: 5)
+                Text(Fecha.diaCorto(fecha)).tipo(.texto(12, 600)).foregroundStyle(elegido ? Color.salvia : Color.sobreBanda2)
+                Text("\(Fecha.dia(fecha))").tipo(.numero(18)).foregroundStyle(elegido ? Color.verde900 : Color.crema)
+                Circle().fill(hayTurnos ? (elegido ? Color.acento : Color.crema.opacity(0.5)) : .clear).frame(width: 5, height: 5)
             }
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity)
-            .background(elegido ? Color.mantecaFija : .clear, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(elegido ? Color.crema : .clear, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(Rectangle())
         }
         .buttonStyle(Apretable())
@@ -113,14 +113,14 @@ private struct LineaDelDia: View {
     }
 }
 
-/// La línea rabanito de «ahora» (.ahora-l).
+/// La línea naranja de «ahora» (.ahora-l).
 private struct LineaAhora: View {
     let hora: String
     var body: some View {
         HStack(spacing: 10) {
             Text(hora).tipo(.texto(12, 700)).monospacedDigit().foregroundStyle(Color.acentoTexto).frame(width: 50, alignment: .leading)
-            Rectangle().fill(Color.rabanito500).frame(height: 2)
-                .overlay(alignment: .leading) { Circle().fill(Color.rabanito500).frame(width: 10, height: 10).offset(x: -5) }
+            Rectangle().fill(Color.acento).frame(height: 2)
+                .overlay(alignment: .leading) { Circle().fill(Color.acento).frame(width: 10, height: 10).offset(x: -5) }
         }
         .padding(.vertical, -2)
         .accessibilityLabel("Ahora, \(hora)")
@@ -137,7 +137,7 @@ private struct FilaTurno: View {
         let hecho = estado.yaPaso(turno)
         let ahora = estado.proximoTurno?.id == turno.id
         HStack(alignment: .top, spacing: 10) {
-            Text(turno.hora).tipo(.texto(14, 600)).monospacedDigit().foregroundStyle(hecho ? Color.corteza : Color.texto2)
+            Text(turno.hora).tipo(.texto(14, 600)).monospacedDigit().foregroundStyle(hecho ? Color.salvia : Color.texto2)
                 .frame(width: 50, alignment: .leading).padding(.top, 14)
             Button {
                 Haptico.seleccion()
@@ -206,7 +206,7 @@ private struct TarjetaTurno: View {
     @ViewBuilder private func borde(libre: Bool) -> some View {
         let forma = RoundedRectangle(cornerRadius: 18, style: .continuous)
         if libre {
-            forma.strokeBorder(esquema == .dark ? Color(hex: 0x2C3C60) : Color.manteca300, style: StrokeStyle(lineWidth: 1.5, dash: [5, 4]))
+            forma.strokeBorder(esquema == .dark ? Color(hex: 0x24503D) : Color.crema400, style: StrokeStyle(lineWidth: 1.5, dash: [5, 4]))
         } else if ahora {
             forma.strokeBorder(Color.marca, lineWidth: 2)
         } else if hecho || esquema == .dark {
@@ -221,8 +221,8 @@ private struct SombraTurno: ViewModifier {
     func body(content: Content) -> some View {
         if activa {
             content
-                .shadow(color: (ahora ? Color.enlozado800.opacity(0.14) : Color.corteza.opacity(0.06)), radius: ahora ? 12 : 9, y: ahora ? 10 : 8)
-                .shadow(color: Color.corteza.opacity(0.08), radius: 1, y: 1)
+                .shadow(color: (ahora ? Color.verde900.opacity(0.14) : Color.salvia.opacity(0.06)), radius: ahora ? 12 : 9, y: ahora ? 10 : 8)
+                .shadow(color: Color.salvia.opacity(0.08), radius: 1, y: 1)
         } else {
             content
         }

@@ -64,7 +64,7 @@ struct AjustesNutri: View {
             Fila(alto: 60) {
                 IconoCirculo(icono: i, tono: tono)
                 NomSub(nombre: t, sub: s)
-                IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
             }
             .contentShape(Rectangle())
         }

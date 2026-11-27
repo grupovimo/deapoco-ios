@@ -63,7 +63,7 @@ struct SeccionCuenta: View {
             Fila(alto: 60) {
                 IconoCirculo(icono: icono, tono: .az)
                 NomSub(nombre: titulo, sub: sub)
-                IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
             }
             .contentShape(Rectangle())
         }

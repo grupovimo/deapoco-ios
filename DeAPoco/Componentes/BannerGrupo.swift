@@ -99,7 +99,7 @@ struct BannerGrupo: View {
     private var etiqueta: some View {
         Text("DE GRUPO VIMO · \(promo.marca.uppercased(with: Locale(identifier: "es_AR")))")
             .font(Estilo.texto(10.5, 700).font()).tracking(0.74)
-            .foregroundStyle(Color(claro: 0x2E5293, oscuro: 0x9DB4E8))
+            .foregroundStyle(Color(claro: 0x1A4A37, oscuro: 0xB5C6BA))
             .lineLimit(1)
     }
 
@@ -110,7 +110,7 @@ struct BannerGrupo: View {
         } label: {
             IconoVista(.x, tamano: 14, grosor: 2.4).foregroundStyle(Color.white)
                 .frame(width: 26, height: 26)
-                .background(Color.enlozado950.opacity(0.55), in: Circle())
+                .background(Color.verde950.opacity(0.55), in: Circle())
                 .frame(width: 44, height: 44)
                 .contentShape(Rectangle())
         }

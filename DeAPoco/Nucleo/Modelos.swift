@@ -86,7 +86,7 @@ struct Paciente: Codable, Hashable, Identifiable {
     var id: String
     var nombre: String
     var foto: String?
-    var tono: TonoAvatar = .durazno
+    var tono: TonoAvatar = .mandarina
     var edad: Int
     var sexo: Sexo = .mujer
     var telefono: String

@@ -13,7 +13,7 @@ struct TuPlanDAP: View {
             NavAtras(atras: "Ajustes")
             VStack(alignment: .leading, spacing: 4) {
                 Etiqueta("Tu plan de De a Poco", color: .sobreBanda2)
-                Titulo(estado.enPrueba ? "Profesional · prueba" : estado.suscripcion.plan.nombre, tamano: 32, color: .mantecaFija)
+                Titulo(estado.enPrueba ? "Profesional · prueba" : estado.suscripcion.plan.nombre, tamano: 32, color: .crema)
             }
             .padding(.horizontal, Espacio.margen).padding(.top, 4)
             HStack(spacing: 20) {
@@ -55,11 +55,11 @@ private struct AroPacientes: View {
         let lleno = estado.activos >= estado.tope
         ZStack {
             Circle().stroke(Color.vidrio12, lineWidth: 12)
-            Circle().trim(from: 0, to: f).stroke(lleno ? Color.rabanito300 : Color.durazno, style: StrokeStyle(lineWidth: 12, lineCap: .round))
+            Circle().trim(from: 0, to: f).stroke(lleno ? Color.naranja300 : Color.mandarina, style: StrokeStyle(lineWidth: 12, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 0) {
                 HStack(alignment: .firstTextBaseline, spacing: 0) {
-                    Text("\(estado.activos)").tipo(.numero(30)).foregroundStyle(Color.mantecaFija)
+                    Text("\(estado.activos)").tipo(.numero(30)).foregroundStyle(Color.crema)
                     Text("/\(estado.tope)").tipo(.numero(16)).foregroundStyle(Color.sobreBanda2)
                 }
                 Text("pacientes").tipo(.texto(12, 600)).foregroundStyle(Color.sobreBanda2)
@@ -92,7 +92,7 @@ private struct ResumenSuscripcion: View {
     private func linea(_ e: String, _ v: String, fuerte: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(e).tipo(.texto(12, 600)).foregroundStyle(Color.sobreBanda2)
-            Text(v).tipo(.texto(fuerte ? 17 : 15, 700)).foregroundStyle(fuerte ? Color.durazno : Color.mantecaFija)
+            Text(v).tipo(.texto(fuerte ? 17 : 15, 700)).foregroundStyle(fuerte ? Color.mandarina : Color.crema)
                 .lineLimit(2).fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -231,8 +231,8 @@ private struct SelectorPeriodo: View {
                         if p == .anual {
                             Text("2 meses gratis").tipo(.texto(11, 700))
                                 .padding(.horizontal, 6).frame(height: 20)
-                                .background(on ? Color.durazno : Color.logroSuave, in: Capsule())
-                                .foregroundStyle(Color.tinta)
+                                .background(on ? Color.mandarina : Color.logroSuave, in: Capsule())
+                                .foregroundStyle(Color.verde900)
                         }
                     }
                     .foregroundStyle(on ? Color.sobreMarca : Color.titulo)
@@ -244,7 +244,7 @@ private struct SelectorPeriodo: View {
             }
         }
         .padding(4)
-        .background(Color.loza, in: Capsule())
+        .background(Color.superficie2, in: Capsule())
     }
 }
 
@@ -287,8 +287,8 @@ private struct TarjetaPlanDAP: View {
             .overlay(RoundedRectangle(cornerRadius: Radio.tarjeta, style: .continuous).strokeBorder(elegido ? Color.marca : Color.borde, lineWidth: elegido ? 2.5 : 1))
             .overlay(alignment: .topTrailing) {
                 if plan == max(estado.planQueAlcanza, .profesional) {
-                    Text("Para vos").tipo(.texto(11, 700)).foregroundStyle(Color.tinta)
-                        .padding(.horizontal, 8).frame(height: 22).background(Color.durazno, in: Capsule())
+                    Text("Para vos").tipo(.texto(11, 700)).foregroundStyle(Color.verde900)
+                        .padding(.horizontal, 8).frame(height: 22).background(Color.mandarina, in: Capsule())
                         .offset(x: -14, y: -11)
                 }
             }
@@ -368,7 +368,7 @@ struct CompraAppStore: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(spacing: 12) {
                     Image("isotipo-negativo").resizable().scaledToFit().padding(8)
-                        .frame(width: 60, height: 60).background(Color.enlozado800, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .frame(width: 60, height: 60).background(Color.verde900, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text("De a Poco \(plan.nombre)").font(.system(size: 17, weight: .semibold))
                         Text("Suscripción \(periodo == .mensual ? "mensual" : "anual")").font(.system(size: 14)).foregroundStyle(.secondary)
@@ -440,7 +440,7 @@ struct HojaTope: View {
                         }
                         Spacer()
                         Text("\(Formato.plata(p.precioMes))/mes").tipo(.numero(18)).foregroundStyle(Color.titulo)
-                        IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                        IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
                     }
                     .padding(16)
                     .background(Color.superficie, in: RoundedRectangle(cornerRadius: Radio.tarjeta, style: .continuous))
@@ -472,14 +472,14 @@ enum FacturaDAPPDF {
             HStack(spacing: 8) {
                 Image("horizontal-color").resizable().scaledToFit().frame(height: 28)
                 Spacer()
-                Text("FACTURA \(f.numero)").font(Estilo.etiqueta.font()).foregroundStyle(Color.corteza)
+                Text("FACTURA \(f.numero)").font(Estilo.etiqueta.font()).foregroundStyle(Color.salvia)
             }
-            Rectangle().fill(Color(hex: 0xE3D3BF)).frame(height: 1)
+            Rectangle().fill(Color.salvia200).frame(height: 1)
             Text("Para: \(titular)").font(Estilo.texto(13, 700).font())
             Text("Fecha: \(Fecha.larga(f.fecha))").font(Estilo.texto(13, 400).font())
             Text(f.concepto).font(Estilo.texto(15, 600).font()).padding(.top, 12)
-            Text(Formato.plata(f.monto)).font(Estilo.numero(40).font()).foregroundStyle(Color.enlozado800)
-            Text("IVA incluido · cobrado por App Store · Grupo Vimo").font(Estilo.texto(11, 400).font()).foregroundStyle(Color.corteza)
+            Text(Formato.plata(f.monto)).font(Estilo.numero(40).font()).foregroundStyle(Color.verde900)
+            Text("IVA incluido · cobrado por App Store · Grupo Vimo").font(Estilo.texto(11, 400).font()).foregroundStyle(Color.salvia)
             Spacer()
         }
         .padding(40).frame(width: 595, height: 842).background(Color.white).environment(\.colorScheme, .light)

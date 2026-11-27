@@ -40,7 +40,7 @@ private struct SemanasEnPlatos: View {
             HStack(alignment: .top, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
                     Etiqueta("De a poco · nivel \(p.nivel)")
-                    Text("Cada plato, una semana anotando.").tipo(.texto(15, 600)).foregroundStyle(Color.texto)
+                    Text("Cada gajo, una semana anotando.").tipo(.texto(15, 600)).foregroundStyle(Color.texto)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,7 +48,7 @@ private struct SemanasEnPlatos: View {
             }
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 8), spacing: 6) {
                 ForEach(Array(p.semanas.enumerated()), id: \.offset) { i, n in
-                    Plato(partes: 7, llenas: n, chico: true)
+                    Gajos(partes: 7, llenas: n, chico: true)
                         .accessibilityLabel("Semana \(i + 1): \(n) de 7 días")
                 }
             }
@@ -96,7 +96,7 @@ struct CurvaMedidas: View {
     }
 }
 
-/// Las tarjetas de logro (.logro): 150 de ancho, durazno la más importante.
+/// Las tarjetas de logro (.logro): 150 de ancho, mandarina la más importante.
 private struct TarjetasLogro: View {
     @Environment(Estado.self) private var estado
     @Environment(NavPaciente.self) private var nav
@@ -106,10 +106,12 @@ private struct TarjetasLogro: View {
                 ForEach(estado.paciente.destacados) { d in
                     Button { Haptico.seleccion(); nav.empujar(.logros) } label: {
                         VStack(alignment: .leading, spacing: 0) {
-                            Plato(partes: d.partes, llenas: d.llenas).frame(width: 36, height: 36)
+                            Gajos(partes: d.partes, llenas: d.llenas, ahora: d.fuerte ? .siguiente : .no,
+                                  lleno: d.fuerte ? .naranja700 : nil, falta: d.fuerte ? .pulpa : nil)
+                                .frame(width: 36, height: 36)
                             Text(d.titulo).tipo(.texto(15, 700)).foregroundStyle(Color.sobreLogro)
                                 .fixedSize(horizontal: false, vertical: true).padding(.top, 10)
-                            Text(d.bajada).tipo(.texto(12.5, 400)).foregroundStyle(Color(claro: 0x54402F, oscuro: 0xE3D3BF))
+                            Text(d.bajada).tipo(.texto(12.5, 400)).foregroundStyle((d.fuerte ? Color.verde900 : Color.texto2))
                                 .fixedSize(horizontal: false, vertical: true).padding(.top, 3)
                         }
                         .padding(14)
@@ -180,7 +182,7 @@ private struct FilaSemana: View {
                 Fila {
                     ChipRachaFija(dias: estado.paciente.racha)
                     NomSub(nombre: "Tu semana", sub: "La racha, el comodín y los platitos")
-                    IconoVista(.chev, tamano: 16).foregroundStyle(Color.corteza400)
+                    IconoVista(.chev, tamano: 16).foregroundStyle(Color.salvia400)
                 }
                 .contentShape(Rectangle())
             }
@@ -193,7 +195,7 @@ private struct FilaSemana: View {
 private struct ChipRachaFija: View {
     let dias: Int
     var body: some View {
-        Plato(partes: 7, llenas: 7, chico: true).frame(width: 40, height: 40)
+        Gajos(partes: 7, llenas: 7, chico: true).frame(width: 40, height: 40)
             .overlay(alignment: .bottomTrailing) {
                 Text("\(dias)").font(Estilo.texto(11, 700).font()).foregroundStyle(Color.sobreLogro)
                     .padding(.horizontal, 5).frame(height: 18).background(Color.logro, in: Capsule()).offset(x: 6, y: 4)

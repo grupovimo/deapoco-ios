@@ -36,12 +36,12 @@ private struct TopeCobros: View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 0) {
                 Etiqueta("Cobrado", color: .sobreBanda2)
-                Text(Formato.plata(estado.cobradoMes)).tipo(.numero(36)).foregroundStyle(Color.mantecaFija).padding(.top, 6)
+                Text(Formato.plata(estado.cobradoMes)).tipo(.numero(36)).foregroundStyle(Color.crema).padding(.top, 6)
                     .lineLimit(1).minimumScaleFactor(0.7)
                     .contentTransition(.numericText(value: Double(estado.cobradoMes)))
                 Group {
                     if estado.faltaCobrar > 0 {
-                        Text("Faltan ") + Text(Formato.plata(estado.faltaCobrar)).font(Estilo.texto(14, 700).font()).foregroundColor(.durazno)
+                        Text("Faltan ") + Text(Formato.plata(estado.faltaCobrar)).font(Estilo.texto(14, 700).font()).foregroundColor(.mandarina)
                             + Text(" de \(deudores) \(deudores == 1 ? "paciente" : "pacientes")")
                     } else {
                         Text("Todos pagaron. Bien ahí.")
@@ -50,8 +50,8 @@ private struct TopeCobros: View {
                 .tipo(.texto(14, 400)).foregroundStyle(Color.sobreBanda2).padding(.top, 8)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            Dona(segmentos: [(estado.pagosPorMedio(.mercadoPago), .durazno), (estado.pagosPorMedio(.transferencia), .enlozado300),
-                             (estado.pagosPorMedio(.efectivo), .mantecaFija)],
+            Dona(segmentos: [(estado.pagosPorMedio(.mercadoPago), .mandarina), (estado.pagosPorMedio(.transferencia), .salvia300),
+                             (estado.pagosPorMedio(.efectivo), .crema)],
                  porcentaje: estado.porcentajeCobrado)
         }
         .padding(.horizontal, Espacio.margen)
@@ -63,9 +63,9 @@ private struct Leyenda: View {
     @Environment(Estado.self) private var estado
     var body: some View {
         HStack(spacing: 14) {
-            item(.durazno, "Mercado Pago", estado.pagosPorMedio(.mercadoPago))
-            item(.enlozado300, "Transferencia", estado.pagosPorMedio(.transferencia))
-            item(.mantecaFija, "Efectivo", estado.pagosPorMedio(.efectivo))
+            item(.mandarina, "Mercado Pago", estado.pagosPorMedio(.mercadoPago))
+            item(.salvia300, "Transferencia", estado.pagosPorMedio(.transferencia))
+            item(.crema, "Efectivo", estado.pagosPorMedio(.efectivo))
         }
         .padding(.horizontal, Espacio.margen)
         .padding(.top, 16)
@@ -73,7 +73,7 @@ private struct Leyenda: View {
     private func item(_ c: Color, _ t: String, _ n: Int) -> some View {
         HStack(spacing: 6) {
             RoundedRectangle(cornerRadius: 3).fill(c).frame(width: 10, height: 10)
-            Text(t).tipo(.texto(13, 600)).foregroundStyle(Color.enlozado100).lineLimit(1)
+            Text(t).tipo(.texto(13, 600)).foregroundStyle(Color.verde100).lineLimit(1)
             Text("\(n)").tipo(.texto(13, 700)).monospacedDigit().foregroundStyle(.white)
         }
         .fixedSize()
@@ -125,7 +125,7 @@ private struct PorCobrar: View {
                 }
             }
             Boton(titulo: "Recordar a \(lista.count == 1 ? "1" : "los \(lista.count)")", icono: .wa, variante: .prim, alto: .medio, ancho: true,
-                  colorIcono: .durazno) { estado.recordarCobros(lista.map(\.id)) }
+                  colorIcono: .mandarina) { estado.recordarCobros(lista.map(\.id)) }
         }
         Boton(titulo: "Cobrar algo", icono: .pago, variante: .suave, alto: .medio, ancho: true) { nav.hoja = .cobrar(nil) }
     }
@@ -142,7 +142,7 @@ private struct FilaCobro: View {
         HStack(spacing: 12) {
             Button { Haptico.seleccion(); nav.hoja = .linkPago(cobro.id) } label: {
                 HStack(spacing: 12) {
-                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .durazno)
+                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .mandarina)
                     NomSub(nombre: p?.nombre ?? "Paciente", sub: e.texto, colorSub: e.aviso ? .aviso : .texto2, pesoSub: e.aviso ? 600 : 400)
                     Text(Formato.plata(cobro.monto)).tipo(.texto(15, 700)).monospacedDigit().foregroundStyle(Color.texto)
                 }
@@ -169,7 +169,7 @@ private struct PagosDelMes: View {
                 if i > 0 { Divisor() }
                 let p = estado.paciente(c.pacienteId)
                 Fila(alto: 56, vertical: 10) {
-                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .durazno, tamano: 32)
+                    Avatar(foto: p?.foto, iniciales: p?.iniciales ?? "", tono: p?.tono ?? .mandarina, tamano: 32)
                     NomSub(nombre: p?.nombre ?? "", sub: "\(Fecha.corta(c.pagadoEl ?? c.fecha)) · \(c.medio?.rawValue ?? "")")
                     Text(Formato.plata(c.monto)).tipo(.texto(15, 600)).monospacedDigit().foregroundStyle(Color.texto)
                 }
@@ -233,7 +233,7 @@ struct HojaCobrar: View {
         } pie: {
             PieHojaN {
                 Boton(titulo: textoBoton, icono: aMano ? .check : .wa, variante: .prim, alto: .alto, ancho: true,
-                      colorIcono: aMano ? nil : .durazno, habilitado: pacienteId != nil) { cobrar() }
+                      colorIcono: aMano ? nil : .mandarina, habilitado: pacienteId != nil) { cobrar() }
             }
         }
     }
@@ -277,13 +277,13 @@ struct HojaLinkPago: View {
                         IconoVista(.link, tamano: 16).foregroundStyle(Color.texto2)
                         Text(link).tipo(.texto(14, 600)).foregroundStyle(Color.texto)
                         Spacer()
-                        Boton(titulo: "Copiar", icono: .copiar, variante: .loza, alto: .chico) {
+                        Boton(titulo: "Copiar", icono: .copiar, variante: .crema, alto: .chico) {
                             UIPasteboard.general.string = "https://\(link)"
                             estado.avisar("Link copiado.")
                         }
                     }
                 }
-                Boton(titulo: "Mandárselo por WhatsApp", icono: .wa, variante: .prim, alto: .alto, ancho: true, colorIcono: .durazno) {
+                Boton(titulo: "Mandárselo por WhatsApp", icono: .wa, variante: .prim, alto: .alto, ancho: true, colorIcono: .mandarina) {
                     estado.recordarCobros([c.id]); cerrar()
                 }
                 Etiqueta("¿Te pagó por otro lado?").padding(.top, 12)

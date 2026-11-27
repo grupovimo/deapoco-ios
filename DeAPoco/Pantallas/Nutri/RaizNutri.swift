@@ -131,7 +131,7 @@ struct RaizNutri: View {
                 .allowsHitTesting(!nav.menuAbierto)
 
             if nav.menuAbierto {
-                Color.enlozado950.opacity(0.5)
+                Color.verde950.opacity(0.5)
                     .ignoresSafeArea()
                     .onTapGesture { withAnimation(.spring(duration: 0.3)) { nav.menuAbierto = false } }
                     .transition(.opacity)
@@ -286,7 +286,7 @@ struct PantallaBandaN<BandaC: View, Cuerpo: View>: View {
     }
 }
 
-/// Esqueleto de una pantalla sobre manteca (sin banda): navegación propia, título y cuerpo.
+/// Esqueleto de una pantalla sobre crema (sin banda): navegación propia, título y cuerpo.
 struct PantallaClaraN<Cuerpo: View>: View {
     var abajo: CGFloat = Espacio.bajoBarra
     @ViewBuilder var cuerpo: () -> Cuerpo

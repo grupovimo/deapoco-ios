@@ -26,7 +26,7 @@ struct PlanPaciente: View {
     }
 }
 
-/// Los siete días (.dias-sem): 52 de alto, el elegido en enlozado.
+/// Los siete días (.dias-sem): 52 de alto, el elegido en verde.
 private struct DiasPlan: View {
     let dias: [String]
     let elegido: String
@@ -40,10 +40,10 @@ private struct DiasPlan: View {
                     VStack(spacing: 2) {
                         Text(Fecha.diaCorto(d)).tipo(.texto(12, 600)).foregroundStyle(on ? Color.sobreBanda2 : Color.texto2)
                         Text("\(Fecha.dia(d))").font(Estilo.texto(16, 600).font()).monospacedDigit()
-                            .foregroundStyle(on ? Color.mantecaFija : Color.texto)
+                            .foregroundStyle(on ? Color.crema : Color.texto)
                     }
                     .frame(maxWidth: .infinity).frame(height: 52)
-                    .background(on ? Color.banda : Color.loza, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .background(on ? Color.banda : Color.superficie2, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 .buttonStyle(Apretable())
                 .accessibilityLabel(Fecha.larga(d))
@@ -69,7 +69,7 @@ private struct FinDeSemana: View {
     }
 }
 
-/// Una comida del plan (.comida): nombre en Fraunces, la hora, y sus ítems o el plato armado.
+/// Una comida del plan (.comida): nombre en Nunito, la hora, y sus ítems o el plato armado.
 struct TarjetaComidaPlan: View {
     let comida: ComidaPlan
     @State private var opcion = 0
@@ -99,7 +99,7 @@ struct TarjetaComidaPlan: View {
                         Text(it.nombre).tipo(.texto(15, 600)).foregroundStyle(Color.texto).frame(maxWidth: .infinity, alignment: .leading)
                         Text(it.porcion).tipo(.texto(13, 600)).foregroundStyle(Color.texto3)
                             .padding(.horizontal, 8).padding(.vertical, 4)
-                            .background(Color.loza, in: RoundedRectangle(cornerRadius: 9, style: .continuous))
+                            .background(Color.superficie2, in: RoundedRectangle(cornerRadius: 9, style: .continuous))
                     }
                     .padding(.vertical, 9)
                 }
@@ -111,7 +111,7 @@ struct TarjetaComidaPlan: View {
     }
 }
 
-/// Opción de plato (.opcion span): loza, la elegida en enlozado-100 con borde.
+/// Opción de plato (.opcion span): crema 300, la elegida en verde-100 con borde.
 private struct ChipPlan: View {
     let titulo: String
     let on: Bool
@@ -121,7 +121,7 @@ private struct ChipPlan: View {
             Text(titulo).tipo(.texto(13, 600))
                 .foregroundStyle(on ? Color.sobreSuave : Color.texto3)
                 .padding(.horizontal, 12).frame(height: 32)
-                .background(on ? Color.suave : Color.loza, in: Capsule())
+                .background(on ? Color.suave : Color.superficie2, in: Capsule())
                 .overlay(Capsule().strokeBorder(on ? Color.marca : .clear, lineWidth: 1.5))
                 .frame(minHeight: 44).contentShape(Rectangle())
         }
@@ -136,7 +136,7 @@ struct PlatoArmadoLista: View {
     let opcion: OpcionPlato
 
     static func color(_ t: TipoPorcion) -> Color {
-        switch t { case .verdura: return .enlozado200; case .proteina: return .rabanito500; case .almidon: return .durazno }
+        switch t { case .verdura: return .hojaClara; case .proteina: return .acento; case .almidon: return .mandarina }
     }
 
     var body: some View {
@@ -163,7 +163,7 @@ struct PlatoArmadoLista: View {
     }
 }
 
-/// La nota de la nutri (.nota-pac): durazno-100, el globito y «Para Sofía:».
+/// La nota de la nutri (.nota-pac): naranja-100, el globito y «Para Sofía:».
 struct NotaDeLaNutri: View {
     let nombre: String
     let texto: String
@@ -226,7 +226,7 @@ struct ListaCompras: View {
                 Text("Comprá lo de la semana y cociná algo el domingo: te salva el miércoles.")
                     .tipo(.texto(13, 400)).foregroundStyle(Color.texto2).padding(.horizontal, 4)
                 if !tildadas.isEmpty {
-                    Boton(titulo: "Empezar de nuevo", icono: .vuelta, variante: .loza, ancho: true) { tildadasTexto = "" }
+                    Boton(titulo: "Empezar de nuevo", icono: .vuelta, variante: .crema, ancho: true) { tildadasTexto = "" }
                 }
             }
         }

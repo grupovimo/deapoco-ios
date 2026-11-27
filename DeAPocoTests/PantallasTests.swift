@@ -29,8 +29,8 @@ final class BaseTests: XCTestCase {
     }
 
     func testFuentes() {
-        XCTAssertTrue(Estilo.titulo(32).uiFont().fontName.hasPrefix("Fraunces"), Estilo.titulo(32).uiFont().fontName)
-        XCTAssertTrue(Estilo.texto(15, 600).uiFont().fontName.hasPrefix("HankenGrotesk"), Estilo.texto(15, 600).uiFont().fontName)
+        XCTAssertTrue(Estilo.titulo(32).uiFont().fontName.hasPrefix("Nunito-"), Estilo.titulo(32).uiFont().fontName)
+        XCTAssertTrue(Estilo.texto(15, 600).uiFont().fontName.hasPrefix("NunitoSans"), Estilo.texto(15, 600).uiFont().fontName)
         // Peso variable aplicado: 700 más ancho que 400.
         let a = ("Hoy atendés" as NSString).size(withAttributes: [.font: Estilo.texto(15, 400).uiFont()]).width
         let b = ("Hoy atendés" as NSString).size(withAttributes: [.font: Estilo.texto(15, 700).uiFont()]).width

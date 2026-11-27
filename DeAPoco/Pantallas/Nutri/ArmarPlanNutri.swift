@@ -77,7 +77,7 @@ struct ArmarPlan: View {
             .scrollIndicators(.hidden)
             Pie {
                 HStack(spacing: 10) {
-                    Boton(titulo: "Ver como \(nombre)", variante: .loza, alto: .alto) { vistaPrevia = true }
+                    Boton(titulo: "Ver como \(nombre)", variante: .crema, alto: .alto) { vistaPrevia = true }
                     Boton(titulo: plan.enviado ? "Mandar los cambios" : "Mandárselo a \(nombre)", variante: .prim, alto: .alto, ancho: true) {
                         guardar()
                         estado.enviarPlan(plan.id)
@@ -165,7 +165,7 @@ struct ArmarPlan: View {
     }
 }
 
-/// Una comida del plan (.comida): título Fraunces, hora, ítems con porción y asa, o el plato armado.
+/// Una comida del plan (.comida): título Nunito, hora, ítems con porción y asa, o el plato armado.
 struct TarjetaComidaN: View {
     let comida: ComidaPlan
     var editable = false
@@ -186,7 +186,7 @@ struct TarjetaComidaN: View {
                             Haptico.seleccion()
                             withAnimation(.snappy) { opcion = (opcion + 1) % comida.opciones.count }
                         } label: {
-                            ChipEstado(texto: "\(comida.opciones.count) opciones", tipo: .loza)
+                            ChipEstado(texto: "\(comida.opciones.count) opciones", tipo: .crema)
                         }
                         .accessibilityHint("Cambia la opción que se ve")
                     }
@@ -239,7 +239,7 @@ fileprivate extension Array {
     subscript(safe i: Int) -> Element? { indices.contains(i) ? self[i] : nil }
 }
 
-/// Un ítem (.item): nombre, porción en loza y el asa para moverlo.
+/// Un ítem (.item): nombre, porción en crema 300 y el asa para moverlo.
 private struct FilaItem: View {
     let item: ItemPlan
     let editable: Bool
@@ -253,7 +253,7 @@ private struct FilaItem: View {
             Text(item.nombre).tipo(.texto(15, 600)).foregroundStyle(Color.texto).frame(maxWidth: .infinity, alignment: .leading)
             Text(item.porcion).tipo(.texto(13, 600)).foregroundStyle(Color.texto3)
                 .padding(.horizontal, 8).padding(.vertical, 4)
-                .background(Color.loza, in: RoundedRectangle(cornerRadius: 9, style: .continuous))
+                .background(Color.superficie2, in: RoundedRectangle(cornerRadius: 9, style: .continuous))
             if editable {
                 Menu {
                     Button("Editar", action: editar)
@@ -261,7 +261,7 @@ private struct FilaItem: View {
                     Button("Bajar", action: bajar)
                     Button("Sacar", role: .destructive, action: borrar)
                 } label: {
-                    IconoVista(.asa, tamano: 20).foregroundStyle(Color.corteza400).frame(width: 32, height: 44)
+                    IconoVista(.asa, tamano: 20).foregroundStyle(Color.salvia400).frame(width: 32, height: 44)
                         .contentShape(Rectangle())
                 }
                 .accessibilityLabel("Opciones de \(item.nombre)")
@@ -302,7 +302,7 @@ struct PlatoArmadoLeyendaN: View {
     }
     private func orden(_ t: TipoPorcion) -> Int { t == .verdura ? 0 : t == .proteina ? 1 : 2 }
     private func color(_ t: TipoPorcion) -> Color {
-        switch t { case .verdura: return .enlozado200; case .proteina: return .rabanito500; case .almidon: return .durazno }
+        switch t { case .verdura: return .hojaClara; case .proteina: return .acento; case .almidon: return .mandarina }
     }
 }
 

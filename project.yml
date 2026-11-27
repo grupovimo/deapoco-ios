@@ -50,8 +50,8 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UIAppFonts:
-          - Fraunces.ttf
-          - HankenGrotesk.ttf
+          - Nunito.ttf
+          - NunitoSans.ttf
         UILaunchScreen:
           UIColorName: Fondo
           UIImageName: Lanzamiento

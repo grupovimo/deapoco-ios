@@ -7,7 +7,7 @@ extension DatosDeMuestra {
 
     // MARK: - Pacientes
 
-    private static func p(_ id: String, _ nombre: String, foto: String? = nil, tono: TonoAvatar = .durazno, edad: Int,
+    private static func p(_ id: String, _ nombre: String, foto: String? = nil, tono: TonoAvatar = .mandarina, edad: Int,
                           sexo: Sexo = .mujer, desde: String, servicio: String = "plan3", objetivo: String,
                           dias: Int, racha: Int, sin: Int, meta: String = "", hechas: Int = 0,
                           novedad: String? = nil, tel: String) -> Paciente {
@@ -67,7 +67,7 @@ extension DatosDeMuestra {
                                     "Gonzalo", "Sebastián", "Ignacio", "Facundo"]
         let objetivos = ["Comer más ordenado", "Tener más energía", "Cuidar el peso, sin dietas", "Rendir en el deporte",
                          "Sentirse mejor de la panza", "Acompañar el colesterol", "Ordenar las cenas"]
-        let tonos: [TonoAvatar] = [.durazno, .az, .lo]
+        let tonos: [TonoAvatar] = [.mandarina, .az, .lo]
         for (i, n) in nombres.enumerated() {
             let primero = String(n.split(separator: " ")[0])
             let id = primero.lowercased().folding(options: .diacriticInsensitive, locale: nil) + "-\(i)"

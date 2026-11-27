@@ -66,9 +66,9 @@ private struct BandaFicha: View {
             }
         }
         HStack(spacing: 14) {
-            Avatar(foto: p.foto, iniciales: p.iniciales, tono: p.tono, tamano: 64, anillo: .mantecaFija, anilloAncho: 3)
+            Avatar(foto: p.foto, iniciales: p.iniciales, tono: p.tono, tamano: 64, anillo: .crema, anilloAncho: 3)
             VStack(alignment: .leading, spacing: 4) {
-                Titulo(p.nombre, tamano: 28, color: .mantecaFija)
+                Titulo(p.nombre, tamano: 28, color: .crema)
                 Text(estado.resumenFicha(p)).tipo(.texto(14, 400)).foregroundStyle(Color.sobreBanda2).lineLimit(1).minimumScaleFactor(0.85)
             }
         }
@@ -98,7 +98,7 @@ private struct AccionBanda: View {
                 IconoVista(icono, tamano: 20)
                 Text(titulo).tipo(.texto(12, 600))
             }
-            .foregroundStyle(Color.mantecaFija)
+            .foregroundStyle(Color.crema)
             .frame(maxWidth: .infinity).frame(height: 58)
             .background(Color.vidrio12, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(Rectangle())
@@ -108,7 +108,7 @@ private struct AccionBanda: View {
     }
 }
 
-/// Las pestañas (.pestanas): subrayado enlozado de 3 en la elegida.
+/// Las pestañas (.pestanas): subrayado verde de 3 en la elegida.
 private struct PestanasFicha: View {
     @Binding var pestana: PestanaFicha
     @Namespace private var ns
@@ -153,7 +153,7 @@ private struct ResumenFicha: View {
         HStack(spacing: 12) {
             Tarjeta(relleno: 14) {
                 HStack(spacing: 10) {
-                    Plato(partes: 7, llenas: p.diasSemana, hoy: p.diasSemana < 7 ? p.diasSemana : nil).frame(width: 44, height: 44)
+                    Gajos(partes: 7, llenas: p.diasSemana).frame(width: 44, height: 44)
                     VStack(alignment: .leading, spacing: 0) {
                         Text("\(p.diasSemana) de 7 días").tipo(.texto(15, 700)).foregroundStyle(Color.texto).lineLimit(1)
                         Text("esta semana").tipo(.texto(13, 400)).foregroundStyle(Color.texto2)
@@ -273,7 +273,7 @@ private struct TiraComidas: View {
                     .frame(width: 72, height: 64)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .overlay(alignment: .bottomLeading) {
-                        Text(dia(r.fecha)).tipo(.texto(11, 700)).foregroundStyle(Color.tinta)
+                        Text(dia(r.fecha)).tipo(.texto(11, 700)).foregroundStyle(Color.verde900)
                             .padding(.horizontal, 6).padding(.vertical, 2)
                             .background(Color.white.opacity(0.92), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
                             .padding(6)
@@ -379,7 +379,7 @@ struct FilaRegistroN: View {
                 Text(r.descripcion).tipo(.texto(13, 400)).foregroundStyle(Color.texto2).lineLimit(2)
                 HStack(spacing: 6) {
                     if r.comoElPlan == true { ChipEstado(texto: "Como el plan", icono: .check, tipo: .ok, alto: 22, tamano: 11.5) }
-                    if let s = r.sensacion { ChipEstado(texto: s.titulo, tipo: .loza, alto: 22, tamano: 11.5) }
+                    if let s = r.sensacion { ChipEstado(texto: s.titulo, tipo: .crema, alto: 22, tamano: 11.5) }
                     if r.bienAhi { ChipEstado(texto: "Bien ahí", icono: .bocado, tipo: .dur, alto: 22, tamano: 11.5) }
                     if !r.revisada { ChipEstado(texto: "Sin mirar", tipo: .aviso, alto: 22, tamano: 11.5) }
                 }
@@ -425,7 +425,7 @@ private struct PagosFicha: View {
                 }
             }
         }
-        Boton(titulo: "Cobrar otra cosa", icono: .mas, variante: .loza, alto: .medio, ancho: true) { nav.hoja = .cobrar(paciente.id) }
+        Boton(titulo: "Cobrar otra cosa", icono: .mas, variante: .crema, alto: .medio, ancho: true) { nav.hoja = .cobrar(paciente.id) }
         TituloSeccion(texto: "Pagó", dato: "\(pagos.count)")
         Tarjeta {
             if pagos.isEmpty { Fila { NomSub(nombre: "Todavía no hay pagos", sub: "Aparecen acá apenas paga") } }

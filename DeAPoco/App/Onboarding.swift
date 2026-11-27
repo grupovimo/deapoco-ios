@@ -26,7 +26,7 @@ enum PasoOnboarding: String, CaseIterable {
     var conFoto: Bool { [.conectar, .listo].contains(self) }
 }
 
-/// Onboarding: una pregunta por pantalla sobre manteca, Fraunces grande, y al pie los puntos y «Seguir».
+/// Onboarding: una pregunta por pantalla sobre crema, Nunito grande, y al pie los puntos y «Seguir».
 struct Onboarding: View {
     var terminar: (Perfil) -> Void
     @State private var perfil: Perfil
@@ -67,13 +67,13 @@ struct Onboarding: View {
         .animation(.spring(duration: 0.42, bounce: 0.12), value: indice)
     }
 
-    // MARK: Arriba: Atrás y el plato que se llena
+    // MARK: Arriba: Atrás y los gajos que se llenan
 
     private var barra: some View {
         HStack(spacing: 12) {
             Redondo(icono: .atras, variante: .claro, etiqueta: "Atrás") { atras() }
             Spacer()
-            Plato(partes: pasos.count - 1, llenas: indice, chico: true).frame(width: 28, height: 28)
+            Gajos(partes: pasos.count - 1, llenas: indice, chico: true).frame(width: 28, height: 28)
             Text("\(indice) de \(pasos.count - 1)").tipo(.texto(14, 600)).monospacedDigit().foregroundStyle(Color.texto2)
                 .contentTransition(.numericText(value: Double(indice)))
         }
@@ -93,7 +93,7 @@ struct Onboarding: View {
                 HStack {
                     HStack(spacing: 6) {
                         ForEach(0..<3, id: \.self) { i in
-                            Capsule().fill(i == paso.etapa(perfil.lado) ? Color.marca : Color.manteca300)
+                            Capsule().fill(i == paso.etapa(perfil.lado) ? Color.marca : Color.crema400)
                                 .frame(width: i == paso.etapa(perfil.lado) ? 34 : 22, height: 6)
                         }
                     }
@@ -214,16 +214,16 @@ private struct TarjetaLado: View {
         Button(action: accion) {
             ZStack(alignment: .bottomLeading) {
                 FotoRecortada(nombre: foto, foco: foco)
-                LinearGradient(colors: [Color.enlozado950.opacity(0), Color.enlozado950.opacity(0.75)], startPoint: .center, endPoint: .bottom)
+                LinearGradient(colors: [Color.verde950.opacity(0), Color.verde950.opacity(0.75)], startPoint: .center, endPoint: .bottom)
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(titulo).font(Estilo.titulo(26).font()).foregroundStyle(Color.mantecaFija)
-                        Text(bajada).tipo(.texto(14, 500)).foregroundStyle(Color.mantecaFija.opacity(0.9))
+                        Text(titulo).font(Estilo.titulo(26).font()).foregroundStyle(Color.crema)
+                        Text(bajada).tipo(.texto(14, 500)).foregroundStyle(Color.crema.opacity(0.9))
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     Spacer(minLength: 8)
-                    IconoVista(.flecha, tamano: 20).foregroundStyle(Color.enlozado800)
-                        .frame(width: 44, height: 44).background(Color.mantecaFija, in: Circle())
+                    IconoVista(.flecha, tamano: 20).foregroundStyle(Color.verde900)
+                        .frame(width: 44, height: 44).background(Color.crema, in: Circle())
                 }
                 .padding(16)
             }
@@ -247,13 +247,13 @@ private struct FotoConSello: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             FotoRecortada(nombre: foto, foco: foco)
-            LinearGradient(stops: [.init(color: Color.enlozado950.opacity(0), location: 0.55), .init(color: Color.enlozado950.opacity(0.55), location: 1)],
+            LinearGradient(stops: [.init(color: Color.verde950.opacity(0), location: 0.55), .init(color: Color.verde950.opacity(0.55), location: 1)],
                            startPoint: .top, endPoint: .bottom)
             HStack(spacing: 10) {
-                Plato(partes: 3, llenas: paso, hoy: paso < 3 ? paso : nil).frame(width: 40, height: 40)
+                Gajos(partes: 3, llenas: paso).frame(width: 40, height: 40)
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(titulo).tipo(.texto(14, 700)).foregroundStyle(Color.tinta)
-                    Text(bajada).tipo(.texto(12.5, 400)).foregroundStyle(Color.corteza)
+                    Text(titulo).tipo(.texto(14, 700)).foregroundStyle(Color.verde900)
+                    Text(bajada).tipo(.texto(12.5, 400)).foregroundStyle(Color.salvia)
                 }
             }
             .padding(.vertical, 10).padding(.leading, 10).padding(.trailing, 14)
@@ -519,7 +519,7 @@ struct CampoGrande: View {
     @FocusState private var foco: Bool
 
     var body: some View {
-        TextField("", text: $texto, prompt: Text(ejemplo).foregroundColor(.corteza400))
+        TextField("", text: $texto, prompt: Text(ejemplo).foregroundColor(.salvia400))
             .font(Estilo.texto(tamano, 600).font())
             .foregroundStyle(Color.texto)
             .tint(Color.marca)
@@ -537,7 +537,7 @@ struct CampoGrande: View {
     }
 }
 
-/// Respuesta en tarjeta (.opc): blanca; elegida, con borde enlozado y el círculo lleno.
+/// Respuesta en tarjeta (.opc): blanca; elegida, con borde verde y el círculo lleno.
 struct OpcionOnb: View {
     let titulo: String
     var bajada: String? = nil
@@ -549,7 +549,7 @@ struct OpcionOnb: View {
     var body: some View {
         Button(action: accion) {
             HStack(spacing: 14) {
-                if let icono { IconoCirculo(icono: icono, tono: elegido ? .az : .loza, tamano: 44) }
+                if let icono { IconoCirculo(icono: icono, tono: elegido ? .az : .crema, tamano: 44) }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(titulo).tipo(.texto(16, 600)).foregroundStyle(Color.texto)
                     if let bajada { Text(bajada).tipo(.texto(13, 400)).foregroundStyle(Color.texto2) }
@@ -572,10 +572,10 @@ struct OpcionOnb: View {
         ZStack {
             if multiple {
                 RoundedRectangle(cornerRadius: 7, style: .continuous).fill(elegido ? Color.marca : .clear)
-                RoundedRectangle(cornerRadius: 7, style: .continuous).strokeBorder(elegido ? Color.marca : Color.corteza400, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 7, style: .continuous).strokeBorder(elegido ? Color.marca : Color.salvia400, lineWidth: 2)
             } else {
                 Circle().fill(elegido ? Color.marca : .clear)
-                Circle().strokeBorder(elegido ? Color.marca : Color.corteza400, lineWidth: 2)
+                Circle().strokeBorder(elegido ? Color.marca : Color.salvia400, lineWidth: 2)
             }
             if elegido { IconoVista(.check, tamano: 14, grosor: 2.8).foregroundStyle(Color.sobreMarca) }
         }
@@ -712,7 +712,7 @@ private struct PasoSalud: View {
                     .background(Color.okFondo, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .transition(.scale.combined(with: .opacity))
                 } else {
-                    Boton(titulo: "Conectar Apple Salud", icono: .salud, variante: .loza, alto: .alto, ancho: true, colorIcono: .salud) {
+                    Boton(titulo: "Conectar Apple Salud", icono: .salud, variante: .crema, alto: .alto, ancho: true, colorIcono: .salud) {
                         Haptico.exito()
                         withAnimation(.snappy) { perfil.saludConectada = true }
                     }
@@ -739,7 +739,7 @@ private struct PasoListo: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             FotoConSello(foto: perfil.lado == .nutri ? "foto-nutri-celu" : "foto-mate-desayuno", foco: UnitPoint(x: 0.5, y: 0.35),
-                         paso: 3, titulo: "Paso 3 de 3", bajada: perfil.lado == .nutri ? "Listo para atender" : "Tu plato, servido")
+                         paso: 3, titulo: "Paso 3 de 3", bajada: perfil.lado == .nutri ? "Listo para atender" : "Tu día, armado")
             VStack(alignment: .leading, spacing: 14) {
                 Titulo("¡Listo, \(perfil.primerNombre.isEmpty ? "ya está" : perfil.primerNombre)!", tamano: 32)
                 Text(perfil.lado == .nutri ? "Sumá a tus pacientes y armá el primer plan. Lo demás, de a poco."

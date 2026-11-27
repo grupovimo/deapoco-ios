@@ -202,7 +202,7 @@ extension View {
     fileprivate func destinosPaciente() -> some View { modifier(DestinosPaciente()) }
 }
 
-/// Esqueleto de una pantalla del paciente: manteca, cuerpo con margen 20, aire para la barra.
+/// Esqueleto de una pantalla del paciente: crema, cuerpo con margen 20, aire para la barra.
 struct PantallaPaciente<Arriba: View, Cuerpo: View>: View {
     var abajo: CGFloat = Espacio.bajoBarra
     @ViewBuilder var arriba: () -> Arriba

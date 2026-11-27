@@ -7,6 +7,7 @@ struct InicioNutri: View {
 
     var body: some View {
         PantallaBandaN {
+            MarcaApp()
             Cabecera(fecha: Fecha.larga(estado.hoy), titulo: estado.tituloHoy) {
                 Redondo(icono: .mensaje, badge: estado.noLeidosNutri, etiqueta: "Mensajes") { nav.abrir(.mensajes) }
                     .padding(.top, -2).padding(.trailing, -2)
@@ -25,19 +26,18 @@ struct InicioNutri: View {
 private struct ProximoTurno: View {
     @Environment(Estado.self) private var estado
     @Environment(NavNutri.self) private var nav
-    @Environment(\.colorScheme) private var esquema
 
     var body: some View {
         let total = estado.atiendeHoy.count
         HStack(spacing: 16) {
-            Plato(partes: max(total, 1), llenas: estado.atendidosHoy, hoy: estado.proximoTurno == nil ? nil : estado.atendidosHoy,
-                  servir: true, fondo: esquema == .dark ? .enlozado950 : nil)
+            Gajos(partes: max(total, 2), llenas: estado.atendidosHoy, ahora: estado.proximoTurno == nil ? .no : .siguiente,
+                  servir: true)
                 .frame(width: 112, height: 112)
                 .accessibilityLabel("\(estado.atendidosHoy) de \(total) turnos atendidos")
             if let t = estado.proximoTurno, let p = estado.paciente(t.pacienteId) {
                 VStack(alignment: .leading, spacing: 0) {
-                    Etiqueta(cuando(t), color: .durazno)
-                    Text(p.nombre).tipo(.texto(19, 600)).foregroundStyle(Color.mantecaFija).padding(.top, 4).lineLimit(1)
+                    Etiqueta(cuando(t), color: .mandarina)
+                    Text(p.nombre).tipo(.texto(19, 600)).foregroundStyle(Color.crema).padding(.top, 4).lineLimit(1)
                     Text("\(t.hora) · \(t.tipo.lowercased()) \(t.modalidad == .enLinea ? "en línea" : "en consultorio")")
                         .tipo(.texto(14, 400)).foregroundStyle(Color.sobreBanda2).padding(.top, 2).lineLimit(1)
                     Boton(titulo: t.modalidad == .enLinea ? "Abrir la consulta" : "Ver su ficha", icono: t.modalidad == .enLinea ? .video : .persona,
@@ -50,9 +50,9 @@ private struct ProximoTurno: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 VStack(alignment: .leading, spacing: 4) {
-                    Etiqueta("Por hoy, listo", color: .durazno)
+                    Etiqueta("Por hoy, listo", color: .mandarina)
                     Text(total == 0 ? "Día libre. Aprovechá para armar planes." : "Atendiste a todos. Bien ahí.")
-                        .tipo(.texto(17, 600)).foregroundStyle(Color.mantecaFija).fixedSize(horizontal: false, vertical: true)
+                        .tipo(.texto(17, 600)).foregroundStyle(Color.crema).fixedSize(horizontal: false, vertical: true)
                     Boton(titulo: "Ver la agenda", icono: .turno, variante: .man, alto: .chico) { nav.ir(.agenda) }.padding(.top, 6)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

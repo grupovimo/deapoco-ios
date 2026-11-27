@@ -54,7 +54,7 @@ struct TurnoYPago: View {
     }
 }
 
-/// El turno (.turno-g): el día en un cuadrado enlozado, la hora, la modalidad y el estado.
+/// El turno (.turno-g): el día en un cuadrado verde, la hora, la modalidad y el estado.
 private struct TarjetaTurno: View {
     let turno: Turno
     var cambiar: () -> Void
@@ -65,11 +65,11 @@ private struct TarjetaTurno: View {
         Tarjeta {
             HStack(spacing: 14) {
                 VStack(spacing: 2) {
-                    Text(Fecha.diaCorto(turno.fecha).uppercased()).font(Estilo.texto(11, 700).font()).tracking(0.66).foregroundStyle(Color.durazno)
-                    Text("\(Fecha.dia(turno.fecha))").font(Estilo.numero(28).font()).foregroundStyle(Color.mantecaFija)
+                    Text(Fecha.diaCorto(turno.fecha).uppercased()).font(Estilo.texto(11, 700).font()).tracking(0.66).foregroundStyle(Color.mandarina)
+                    Text("\(Fecha.dia(turno.fecha))").font(Estilo.numero(28).font()).foregroundStyle(Color.crema)
                 }
                 .frame(width: 64, height: 70)
-                .background(Color.enlozado800, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .background(Color.verde900, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(turno.hora) con \(estado.paciente.nutri.nombre)").tipo(.texto(17, 700)).foregroundStyle(Color.texto)
                     Text("\(turno.modalidad.titulo) · \(turno.duracion) minutos").tipo(.texto(14, 400)).foregroundStyle(Color.texto2)
@@ -281,10 +281,10 @@ struct HojaSacarTurno: View {
                                 Button { Haptico.seleccion(); dia = d; hora = nil } label: {
                                     VStack(spacing: 2) {
                                         Text(Fecha.diaCorto(d)).tipo(.texto(12, 600)).foregroundStyle(on ? Color.sobreBanda2 : Color.texto2)
-                                        Text("\(Fecha.dia(d))").font(Estilo.texto(17, 600).font()).monospacedDigit().foregroundStyle(on ? Color.mantecaFija : Color.texto)
+                                        Text("\(Fecha.dia(d))").font(Estilo.texto(17, 600).font()).monospacedDigit().foregroundStyle(on ? Color.crema : Color.texto)
                                     }
                                     .frame(width: 52, height: 60)
-                                    .background(on ? Color.banda : Color.loza, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                    .background(on ? Color.banda : Color.superficie2, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                                 }
                                 .buttonStyle(Apretable())
                                 .accessibilityLabel(Fecha.larga(d))

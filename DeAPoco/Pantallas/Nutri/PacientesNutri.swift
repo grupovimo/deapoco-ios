@@ -75,8 +75,8 @@ private struct BuscadorBanda: View {
             IconoVista(.buscar, tamano: 20).foregroundStyle(Color.sobreBanda2)
             TextField("", text: $texto, prompt: Text("Buscar por nombre").foregroundColor(.sobreBanda2))
                 .font(Estilo.texto(15, 400).font())
-                .foregroundStyle(Color.mantecaFija)
-                .tint(Color.durazno)
+                .foregroundStyle(Color.crema)
+                .tint(Color.mandarina)
                 .autocorrectionDisabled()
             if !texto.isEmpty {
                 Button { texto = "" } label: {
@@ -93,7 +93,7 @@ private struct BuscadorBanda: View {
     }
 }
 
-/// Los tres números (.resumen-s): vienen bien, a medias y aflojaron (en durazno, para mirar).
+/// Los tres números (.resumen-s): vienen bien, a medias y aflojaron (en mandarina, para mirar).
 private struct ResumenRitmo: View {
     @Binding var filtro: Ritmo?
     @Environment(Estado.self) private var estado
@@ -111,11 +111,11 @@ private struct ResumenRitmo: View {
                         Text("\(estado.pacientes(r).count)").tipo(.numero(24))
                         Text(r.titulo).tipo(.texto(12.5, 600)).lineLimit(1)
                     }
-                    .foregroundStyle(ojo ? Color.tinta : Color.mantecaFija)
+                    .foregroundStyle(ojo ? Color.verde900 : Color.crema)
                     .padding(.horizontal, 12).padding(.vertical, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(ojo ? Color.durazno : Color.mantecaFija.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(on ? Color.mantecaFija : .clear, lineWidth: 2))
+                    .background(ojo ? Color.mandarina : Color.crema.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(on ? Color.crema : .clear, lineWidth: 2))
                 }
                 .buttonStyle(Apretable())
                 .accessibilityLabel("\(estado.pacientes(r).count) \(r.titulo)")
@@ -141,14 +141,14 @@ struct FilaPacienteN: View {
                 HStack(spacing: 10) {
                     Avatar(foto: p.foto, iniciales: p.iniciales, tono: p.tono)
                     NomSub(nombre: p.nombre, sub: p.estado == .activo ? p.resumenRitmo : p.estado.titulo)
-                    Plato(partes: 7, llenas: p.diasSemana, chico: true).frame(width: 34, height: 34)
+                    Gajos(partes: 7, llenas: p.diasSemana, ahora: .no, chico: true).frame(width: 34, height: 34)
                         .accessibilityLabel("\(p.diasSemana) de 7 días")
                 }
                 .contentShape(Rectangle())
             }
             .buttonStyle(Apretable())
             if p.ritmo == .bien {
-                Boton(titulo: "Bien ahí", icono: .bocado, variante: .loza, alto: .chico, colorIcono: .rabanito500) { estado.mandarBienAhi(p.id) }
+                Boton(titulo: "Bien ahí", icono: .bocado, variante: .crema, alto: .chico, colorIcono: .acento) { estado.mandarBienAhi(p.id) }
                     .accessibilityLabel("Mandarle un bien ahí a \(p.primerNombre)")
             } else {
                 BotonWA(titulo: "Escribile") {
@@ -195,7 +195,7 @@ struct HojaPacienteNuevo: View {
         } pie: {
             PieHojaN {
                 Boton(titulo: "Sumarlo y mandar la invitación", icono: .wa, variante: .prim, alto: .alto, ancho: true,
-                      colorIcono: .durazno, habilitado: nombre.trimmingCharacters(in: .whitespaces).count >= 3) {
+                      colorIcono: .mandarina, habilitado: nombre.trimmingCharacters(in: .whitespaces).count >= 3) {
                     if let id = estado.crearPaciente(nombre: nombre, telefono: telefono, servicioId: servicio,
                                                      objetivo: objetivo.isEmpty ? "A definir en la primera consulta" : objetivo) {
                         cerrar()
@@ -209,7 +209,7 @@ struct HojaPacienteNuevo: View {
     }
 }
 
-/// Opción de servicio (.opc): blanca, la elegida con borde enlozado y el círculo con tilde.
+/// Opción de servicio (.opc): blanca, la elegida con borde verde y el círculo con tilde.
 struct OpcionServicioN: View {
     let servicio: Servicio
     let elegido: Bool
@@ -245,7 +245,7 @@ struct CirculoElegirN: View {
                 Circle().fill(Color.marca)
                 IconoVista(.check, tamano: 14, grosor: 2.8).foregroundStyle(Color.sobreMarca)
             } else {
-                Circle().strokeBorder(Color.corteza400, lineWidth: 2)
+                Circle().strokeBorder(Color.salvia400, lineWidth: 2)
             }
         }
         .frame(width: 22, height: 22)

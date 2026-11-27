@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Esqueleto de una hoja: manteca, cruz para cerrar, título Fraunces, cuerpo con scroll y un pie fijo.
+/// Esqueleto de una hoja: crema, cruz para cerrar, título Nunito, cuerpo con scroll y un pie fijo.
 struct HojaBaseN<Cuerpo: View, PieC: View>: View {
     let titulo: String
     var bajada: String? = nil
@@ -14,7 +14,7 @@ struct HojaBaseN<Cuerpo: View, PieC: View>: View {
                 Spacer()
                 Button { Haptico.seleccion(); cerrar() } label: {
                     IconoVista(.x, tamano: 20).foregroundStyle(Color.texto2)
-                        .frame(width: 36, height: 36).background(Color.loza, in: Circle())
+                        .frame(width: 36, height: 36).background(Color.superficie2, in: Circle())
                         .frame(width: 44, height: 44).contentShape(Rectangle())
                 }
                 .accessibilityLabel("Cerrar")
@@ -55,11 +55,11 @@ struct PieHojaN<Contenido: View>: View {
             .padding(.horizontal, Espacio.margen)
             .padding(.top, 10)
             .padding(.bottom, 8)
-            .background(Color.fondo.shadow(color: Color.corteza.opacity(0.08), radius: 8, y: -6).ignoresSafeArea())
+            .background(Color.fondo.shadow(color: Color.salvia.opacity(0.08), radius: 8, y: -6).ignoresSafeArea())
     }
 }
 
-/// Campo de texto del diseño (.campo-l): blanco, borde corteza-200, 48 de alto.
+/// Campo de texto del diseño (.campo-l): blanco, borde salvia-200, 48 de alto.
 struct CampoN: View {
     let etiqueta: String
     @Binding var texto: String
@@ -74,7 +74,7 @@ struct CampoN: View {
             if !etiqueta.isEmpty { Etiqueta(etiqueta) }
             HStack(spacing: 8) {
                 if let icono { IconoVista(icono, tamano: 20).foregroundStyle(Color.texto2) }
-                TextField("", text: $texto, prompt: Text(prompt).foregroundColor(.corteza400), axis: multilinea ? .vertical : .horizontal)
+                TextField("", text: $texto, prompt: Text(prompt).foregroundColor(.salvia400), axis: multilinea ? .vertical : .horizontal)
                     .font(Estilo.texto(15, 400).font())
                     .foregroundStyle(Color.texto)
                     .keyboardType(teclado)
@@ -205,9 +205,9 @@ struct ElegirDiaYHoraN: View {
                                 Text("\(Fecha.dia(f))").tipo(.numero(17))
                                 Text(libres == 0 ? "—" : "\(libres)").tipo(.texto(11, 600)).opacity(0.8)
                             }
-                            .foregroundStyle(on ? Color.sobreMarca : (libres == 0 ? Color.corteza400 : Color.texto))
+                            .foregroundStyle(on ? Color.sobreMarca : (libres == 0 ? Color.salvia400 : Color.texto))
                             .frame(width: 48, height: 68)
-                            .background(on ? Color.marca : Color.loza, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .background(on ? Color.marca : Color.superficie2, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                         }
                         .buttonStyle(Apretable())
                         .disabled(libres == 0)

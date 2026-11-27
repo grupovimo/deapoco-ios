@@ -135,7 +135,7 @@ private struct CabeceraChat: View {
                 IconoVista(.atras, tamano: 24).foregroundStyle(Color.marca).frame(width: 44, height: 44)
             }
             .accessibilityLabel("Volver")
-            Avatar(foto: paciente?.foto, iniciales: paciente?.iniciales ?? "", tono: paciente?.tono ?? .durazno)
+            Avatar(foto: paciente?.foto, iniciales: paciente?.iniciales ?? "", tono: paciente?.tono ?? .mandarina)
             VStack(alignment: .leading, spacing: 0) {
                 Text(paciente?.nombre ?? "").tipo(.texto(16, 700)).foregroundStyle(Color.texto)
                 Text(paciente.map { $0.resumenRitmo } ?? "").tipo(.texto(13, 400)).foregroundStyle(Color.texto2)
@@ -148,7 +148,7 @@ private struct CabeceraChat: View {
     }
 }
 
-/// Una burbuja (.bur): la mía en enlozado a la derecha, la otra en blanco a la izquierda.
+/// Una burbuja (.bur): la mía en verde a la derecha, la otra en blanco a la izquierda.
 private struct Burbuja: View {
     let mensaje: Mensaje
     let mia: Bool
@@ -163,8 +163,8 @@ private struct Burbuja: View {
                 }
                 if let a = m.audio {
                     HStack(spacing: 10) {
-                        IconoVista(.play, tamano: 16).foregroundStyle(mia ? Color.enlozado800 : Color.mantecaFija)
-                            .frame(width: 34, height: 34).background(mia ? Color.mantecaFija : Color.enlozado800, in: Circle())
+                        IconoVista(.play, tamano: 16).foregroundStyle(mia ? Color.verde900 : Color.crema)
+                            .frame(width: 34, height: 34).background(mia ? Color.crema : Color.verde900, in: Circle())
                         Onda()
                         Text("\(a / 60):\(String(format: "%02d", a % 60))").tipo(.texto(11, 400)).monospacedDigit()
                     }
@@ -208,7 +208,7 @@ private struct RespuestasRapidas: View {
                         Text(o).tipo(.texto(14, 600)).foregroundStyle(Color.titulo)
                             .padding(.horizontal, 14).frame(height: 36)
                             .background(Color.superficie, in: Capsule())
-                            .overlay(Capsule().strokeBorder(Color(claro: 0xC6D4F2, oscuro: 0x2C3C60), lineWidth: 1.5))
+                            .overlay(Capsule().strokeBorder(Color(claro: 0xDCD6C2, oscuro: 0x24503D), lineWidth: 1.5))
                             .frame(minHeight: 44)
                     }
                     .buttonStyle(Apretable())
@@ -235,7 +235,7 @@ private struct CajaMensaje: View {
                     .frame(width: 44, height: 44).background(Color.superficie, in: Circle()).sombraChica()
             }
             .accessibilityLabel("Mandar una foto")
-            TextField("", text: $texto, prompt: Text("Escribile a \(para)").foregroundColor(.corteza), axis: .vertical)
+            TextField("", text: $texto, prompt: Text("Escribile a \(para)").foregroundColor(.salvia), axis: .vertical)
                 .font(Estilo.texto(15, 400).font())
                 .foregroundStyle(Color.texto)
                 .lineLimit(1...4)
@@ -296,7 +296,7 @@ private struct FilaAviso: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             VStack(alignment: .trailing, spacing: 6) {
                 Text(aviso.fecha == hoy ? aviso.hora : Fecha.corta(aviso.fecha)).tipo(.texto(12, 600)).monospacedDigit().foregroundStyle(Color.texto2)
-                if !aviso.leido { Circle().fill(Color.rabanito500).frame(width: 8, height: 8).accessibilityLabel("Nuevo") }
+                if !aviso.leido { Circle().fill(Color.acento).frame(width: 8, height: 8).accessibilityLabel("Nuevo") }
             }
         }
         .padding(.horizontal, 16).padding(.vertical, 12)
